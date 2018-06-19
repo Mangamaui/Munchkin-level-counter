@@ -1,7 +1,8 @@
 //import all reducers here
+import app from './core/reducer';
 
-const reducers = {
-
+const rootReducer = {
+    app
 };
 
-export default reducers;
+export default rootReducer;

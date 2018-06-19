@@ -1,15 +1,16 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
-import reducers from './rootreducer';
+import rootReducer from './rootreducer';
+import { loadState } from './core/localstorage';
 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const initialState = {};
+const persistedState = {} //loadState();
 
 
 export default createStore(
-    combineReducers(reducers),
-    initialState,
+    combineReducers(rootReducer),
+    persistedState,
     composeEnhancers(applyMiddleware(thunk))
 );
