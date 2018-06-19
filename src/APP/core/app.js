@@ -1,20 +1,63 @@
 import React, { Component } from 'react';
-import logo from '../../assets/logo.svg';
+import { connect } from 'react-redux';
+
+import StartScreen from '../views/startScreen';
+import SetupScreen from '../views/setupScreen';
+import OverviewScreen from '../views/overviewScreen';
+import TurnView from '../views/turnView';
+import EndScreen from '../views/endScreen';
+
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+
+    render() {
+        const view = this.switchViews(this.props.view);
+
+        return (
+            <div className="App">
+                <header>
+                    <h1>Munchkin levelcounter</h1>
+                </header>
+                <div className="container">
+                    {view}
+                </div>
+            </div>
+        );
+    }
+
+    switchViews(view) {
+        // startview
+        // add players
+        // overview / order
+        // turn / playerDetail
+        // Winner
+
+            switch(view) {
+                case "start":
+                    return (<StartScreen />);
+
+                case "setup":
+                    return (<SetupScreen />);
+
+                case "overview":
+                    return (<OverviewScreen />);
+
+                case "turns":
+                    return (<TurnView />);
+
+                case "winner":
+                    return (<EndScreen />);
+
+                default:
+                    return (<div>404</div>);
+            }
+    }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+    return {
+        view: state.app.view,
+    };
+}
+
+export default connect(mapStateToProps, null)(App);

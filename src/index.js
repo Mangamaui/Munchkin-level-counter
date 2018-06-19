@@ -6,10 +6,12 @@ import App from './APP/core/app';
 
 import store from './APP/store';
 import { Provider } from 'react-redux';
-
+import { saveState } from './APP/core/localstorage';
 
 store.subscribe(() => {
-
+  saveState({
+    app: store.getState().app
+  });
 });
 
 ReactDOM.render(
