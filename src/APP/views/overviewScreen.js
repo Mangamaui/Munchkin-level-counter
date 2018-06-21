@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -6,31 +6,26 @@ import PlayerList from '../player/playerList';
 import * as actionCreators from '../core/actions';
 
 
+const OverviewScreen = (props) => {
 
-class OverviewScreen extends Component {
-    constructor(props) {
-        super(props);
-
-        this.buttonHandler = this.buttonHandler.bind(this);
-    }
-
-
-    buttonHandler(e) {
+    /**
+    *   triggers a game update, such as load a new active player and set the next
+    */
+    const UPDATE_HANDLER = (e) => {
         e.preventDefault();
-        this.props.actions.updateGame();
-        this.props.actions.updateView("turns");
-
+        props.actions.updateGame();
+        props.actions.updateView("turns");
     }
 
-    render() {
-        return (
-            <div>
-                <PlayerList />
-                <button className="btn" onClick={this.buttonHandler}>Start Playing!</button>
-            </div>
-        )
-    }
+    return (
+        <div>
+            <PlayerList />
+            <button className="btn"
+                onClick={UPDATE_HANDLER}>Start Playing!</button>
+        </div>
+    );
 }
+
 
 const mapDispatchToProps = (dispatch) => {
     return {

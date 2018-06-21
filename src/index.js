@@ -2,11 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import './app.css';
-import App from './APP/core/app';
+import App from './App/core/app';
 
-import store from './APP/store';
+import store from './App/store';
 import { Provider } from 'react-redux';
-import { saveState } from './APP/core/localstorage';
+import { saveState } from './App/core/localstorage';
 
 store.subscribe(() => {
   saveState({

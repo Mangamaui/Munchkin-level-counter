@@ -14,18 +14,26 @@ class StartScreen extends Component {
 
         this.handleCreate = this.handleCreate.bind(this);
     }
+    //<button className="btn" disabled={this.state.saveGame}>Continue previous game</button>
 
     render() {
         return (
             <div className="startScreen">
-                <div className="msg"><p>Welcome to the Munchkin Adventure Time Level Counter! Start tracking your game by clicking "new game".</p></div>
-                <button className="btn" disabled={this.state.saveGame}>Continue previous game</button>
-                <button className="btn" onClick={this.handleCreate} >Start new game</button>
+                <div className="msg">
+                    <p>Welcome to the Munchkin Adventure Time Level Counter!
+                        Start tracking your game by clicking "new game".</p>
+                </div>
+                <button className="btn" onClick={this.handleCreate}>
+                    Start new game</button>
             </div>
         )
     }
 
+    /**
+    *   this will trigger the creategame function and sets the view to setup
+    */
     handleCreate(e) {
+        e.preventDefault();
        this.props.actions.createGame();
        this.props.actions.updateView("setup");
     }
@@ -34,9 +42,7 @@ class StartScreen extends Component {
 const mapStateToProps = (state) => {
     return {
         editPlayer: state.app.editPlayer,
-        // editMode: state.app.editMode,
         gameSession: state.app.gameSession,
-        //selectedAvatar: state.app.selectedAvatar
     };
 }
 

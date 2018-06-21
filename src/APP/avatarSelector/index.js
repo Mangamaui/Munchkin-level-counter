@@ -1,32 +1,39 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import * as actionCreators from '../core/actions';
 
 
-class AvatarSelector extends Component {
+const AvatarSelector = (props) => {
 
-    render() {
-        const CHAR = this.props.availableAvatars.find((char) => {
+    /**
+    *   This returns the entire avatarObject of the selectedAvatar
+    *   and stores it in CHAR.
+    */
+    const CHAR = props.availableAvatars.find((avatar) => {
+        return avatar.id === props.selectedAvatar.characterID;
+    });
 
-            return char.id === this.props.selectedAvatar.characterID;
-        });
-        const ALTSTATE = this.props.selectedAvatar.alterEgoState;
+    const ALTSTATE = props.selectedAvatar.alterEgoState;
 
-        return (
-            <div className="avatarSelector">
-                <button className="btn controller controller-left" onClick={this.props.actions.previousAvatarListId}>previous</button>
-                <div className="character">
-                    <img src={CHAR.alterEgo[ALTSTATE].image} alt="t"/>
-                </div>
-                <button className="btn controller controller-right" onClick={this.props.actions.nextAvatarListId}>next</button>
-                <button className="btn" onClick={this.props.actions.toggleAlterEgo}>Toggle</button>
+    return (
+        <div className="avatarSelector">
+            <button className="btn controller controller-left"
+                onClick={props.actions.previousAvatarListId}>
+            previous</button>
+            <div className="character">
+                <img src={CHAR.alterEgo[ALTSTATE].image} alt="t"/>
             </div>
-        );
-    }
+            <button className="btn controller controller-right"
+                onClick={props.actions.nextAvatarListId}>next</button>
+            <button className="btn"
+                onClick={props.actions.toggleAlterEgo}>Toggle</button>
+        </div>
+    );
 
 }
+
 
 const mapStateToProps = (state) => {
     return {

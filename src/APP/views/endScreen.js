@@ -1,49 +1,55 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { avatarList } from '../avatars';
 
 import * as actionCreators from '../core/actions';
 
-class EndScreen extends Component {
-    constructor(props) {
-        super(props);
 
-        this.restartHandler = this.restartHandler.bind(this);
-    }
+const EndScreen = (props) => {
 
-    render() {
-        const winner = this.getWinner();
-        const ego = winner.avatar.alterEgoState;
-        const avatar = this.getAvatar(winner);
-
-        return (
-            <div>
-                <p><span>{winner.name}</span> wins the game</p>
-                <div><img src={avatar.alterEgo[ego].image}  height="100" width="100" alt={avatar.alterEgo[ego].name}/></div>
-
-                <button onClick={this.restartHandler}>Time for another round?</button>
-            </div>
-        )
-    }
-    restartHandler(e) {
+    /**
+    *   triggers the create new game action and moves back to the setup view
+    */
+    const RESTART_HANDLER = (e) => {
         e.preventDefault();
-        this.props.actions.createGame();;
-        this.props.actions.updateView("setup");
+        props.actions.createGame();
+        props.actions.updateView("setup");
     }
 
-    getWinner(){
-        return this.props.playerList.find((player) => {
+    /**
+    *   returns a winner
+    */
+    const GET_WINNER = () => {
+        return props.playerList.find((player) => {
             return player.characterLevel === 10;
         })
     }
 
-    getAvatar(winner) {
+    /**
+    *   returns the avatar object based on the id
+    */
+    const GET_AVATAR = (winner) => {
         return avatarList.find((avatar) => {
             return avatar.id === winner.avatar.characterID;
         });
     }
+
+
+    const WINNER = GET_WINNER();
+    const EGO = WINNER.avatar.alterEgoState;
+    const AVATAR = GET_AVATAR(WINNER);
+
+    return (
+        <div>
+            <p><span>{WINNER.name}</span> wins the game</p>
+            <div><img src={AVATAR.alterEgo[EGO].image}  height="100" width="100" alt={AVATAR.alterEgo[EGO].name}/></div>
+
+            <button onClick={RESTART_HANDLER}>Time for another round?</button>
+        </div>
+    )
 }
+
 
 const mapStateToProps = (state) => {
     return {
