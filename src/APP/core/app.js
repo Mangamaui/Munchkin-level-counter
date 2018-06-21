@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import StartScreen from '../views/startScreen';
@@ -7,52 +7,47 @@ import OverviewScreen from '../views/overviewScreen';
 import TurnView from '../views/turnView';
 import EndScreen from '../views/endScreen';
 
+const App = (props) => {
+    /**
+    *   Switch views will load the corresponding view component
+    */
+    const SWITCH_VIEWS = (view) => {
 
-class App extends Component {
+        switch(view) {
+            case "start":
+                return (<StartScreen />);
 
-    render() {
-        const view = this.switchViews(this.props.view);
+            case "setup":
+                return (<SetupScreen />);
 
-        return (
-            <div className="App">
-                <header>
-                    <h1>Munchkin levelcounter</h1>
-                </header>
-                <div className="container">
-                    {view}
-                </div>
+            case "overview":
+                return (<OverviewScreen />);
+
+            case "turns":
+                return (<TurnView />);
+
+            case "winner":
+                return (<EndScreen />);
+
+            default:
+                return (<div>404</div>);
+        }
+    }
+
+    const VIEW = SWITCH_VIEWS(props.view);
+
+    return (
+        <div className="App">
+            <header>
+                <h1>Munchkin levelcounter</h1>
+            </header>
+            <div className="container">
+                {VIEW}
             </div>
-        );
-    }
-
-    switchViews(view) {
-        // startview
-        // add players
-        // overview / order
-        // turn / playerDetail
-        // Winner
-
-            switch(view) {
-                case "start":
-                    return (<StartScreen />);
-
-                case "setup":
-                    return (<SetupScreen />);
-
-                case "overview":
-                    return (<OverviewScreen />);
-
-                case "turns":
-                    return (<TurnView />);
-
-                case "winner":
-                    return (<EndScreen />);
-
-                default:
-                    return (<div>404</div>);
-            }
-    }
+        </div>
+    );
 }
+
 
 const mapStateToProps = (state) => {
     return {

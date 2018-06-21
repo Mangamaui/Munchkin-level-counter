@@ -1,15 +1,5 @@
-// start new game
-// load game
-// save game
-// end game
-// add player
-// delete player
-// update player
-
 import { clearState } from './localstorage';
 import store from '../store';
-
-let playerID = 1;
 
 const PLAYER = {
     id: "",
@@ -50,9 +40,9 @@ export function saveGame() {
 export function updateGame() {
 
     return (dispatch, getState) => {
-        const winner = checkForWinner();
+        const WINNER = checkForWinner();
 
-        if(!winner) {
+        if(!WINNER) {
             dispatch({type: 'UPDATE_GAME'});
         } else {
             dispatch({
@@ -80,10 +70,11 @@ export function endGame(gameData) {
 }
 
 export function addPlayer(playerName) {
-    const id = playerID++;
-    let name = playerName || `player ${id}`;
+
 
     return (dispatch, getState) => {
+        const ID = getState().app.gameSession.playerList.length + 1;
+        let name = playerName || `player ${ID}`;
 
         if(getState().app.editPlayer !== null) {
             dispatch({
@@ -91,8 +82,8 @@ export function addPlayer(playerName) {
             })
         }
 
-        const playerCopy = {...PLAYER,
-            id: `player${id}`,
+        const PLAYERCOPY = {...PLAYER,
+            id: `player${ID}`,
             name: name,
             avatar: getState().app.selectedAvatar
         }
@@ -108,7 +99,7 @@ export function addPlayer(playerName) {
 
             dispatch({
                 type: 'ADD_PLAYER',
-                payload: playerCopy
+                payload: PLAYERCOPY
             });
         }
     }
@@ -190,16 +181,16 @@ export function toggleEditMode() {
 /*                             Helper functions                               */
 /*============================================================================*/
 function checkForWinner() {
-    const state = store.getState();
-    return state.app.gameSession.playerList.find((player) => {
+    const STATE = store.getState();
+    return STATE.app.gameSession.playerList.find((player) => {
         return player.characterLevel === 10;
     });
 }
 
 function checkPlayerLimit() {
-    const state = store.getState();
+    const STATE = store.getState();
 
-    if (state.app.gameSession.playerList.length === 6) {
+    if (STATE.app.gameSession.playerList.length === 6) {
         return true;
     }
 

@@ -21,20 +21,34 @@ const initialState = {
 
 function app (state = initialState, action) {
     let currentChar, charPos, index = null;
-    let availableAvatars, playerList, newSelection, currentPlayer, gameSessionCopy;
+    let availableAvatars, playerList, newSelection, currentPlayer,
+        gameSessionCopy;
 
     switch(action.type) {
+        /**
+        *   Update view will set the requested view
+        */
         case 'UPDATE_VIEW':
             return {...state, view: action.payload}
 
+        /**
+        *   Create game resets all data by returning a copy of the initial state
+        */
         case 'CREATE_GAME':
             debugTools.log("game created");
             return {...initialState};
 
+        /**
+        *   Load game will the last localstorage entry
+        */
         case 'LOAD_GAME':
             debugTools.log("game loaded");
             return state;
 
+        /**
+        *   Update game will update the active player to the next player in line
+        *   and set a new next player
+        */
         case 'UPDATE_GAME':
             debugTools.log("game updated");
 
@@ -45,7 +59,8 @@ function app (state = initialState, action) {
                 activePlayer = state.gameSession.nextPlayer;
             }
 
-            var nextPlayer = getNextPlayer(state.gameSession.playerList, activePlayer);
+            var nextPlayer = getNextPlayer(state.gameSession.playerList,
+                activePlayer);
 
             gameSessionCopy = {...state.gameSession,
                 activePlayer: activePlayer,
@@ -55,14 +70,6 @@ function app (state = initialState, action) {
             return {...state,
                 gameSession: gameSessionCopy};
 
-        case 'DELETE_GAME':
-            debugTools.log("game deleted");
-            return state;
-
-        case 'END_GAME':
-            debugTools.log('game has ended');
-            return state;
-
         /**
         *   Add a new player to the gamesession and update the
         *   available avatarList
@@ -71,7 +78,8 @@ function app (state = initialState, action) {
             debugTools.log("added player");
             playerList = [...state.gameSession.playerList, action.payload];
 
-            newSelection = setSelectedAvatar(state.selectedAvatar, state.availableAvatars);
+            newSelection = setSelectedAvatar(state.selectedAvatar,
+                state.availableAvatars);
             availableAvatars = updateAvailableAvatars(playerList);
 
             return {...state,
@@ -89,39 +97,53 @@ function app (state = initialState, action) {
             index = playerList.findIndex(player => player.id === action.payload.id);
             playerList[index].avatar =  action.payload.avatar;
 
-            newSelection = setSelectedAvatar(state.selectedAvatar, state.availableAvatars);
+            newSelection = setSelectedAvatar(state.selectedAvatar,
+                state.availableAvatars);
             availableAvatars = updateAvailableAvatars(playerList);
 
-            if(action.payload.name !== null){
+            if (action.payload.name !== null) {
                 playerList[index].name = action.payload.name;
             }
 
             gameSessionCopy = {...state.gameSession, playerList: playerList};
+
             return {...state,
                 gameSessionCopy,
                 availableAvatars: availableAvatars,
                 selectedAvatar: newSelection,
                 editPlayer: null
             };
-            
+
+        /**
+        *   Based on the levelType that was passed on through payload,
+        *   the corresponding level will be decreased
+        */
         case 'DECREASE_PLAYER_LEVEL':
             playerList = [...state.gameSession.playerList];
             index = findObjectIndex(playerList, action.payload.id);
             currentPlayer = playerList[index];
             currentPlayer[action.payload.levelType] -=1;
+
             currentPlayer.combatLevel = updateCombatLevel(currentPlayer);
             playerList[index] = {...currentPlayer};
 
             return {...state,
                 gameSession: { ...state.gameSession, playerList }};
 
+        /**
+        *   Based on the levelType that was passed on through payload,
+        *   the corresponding level will be increased
+        */
         case 'INCREASE_PLAYER_LEVEL':
+            debugTools.log('increase player level');
             playerList = [...state.gameSession.playerList];
-            const levelType = action.payload.levelType;
+            const LEVELTYPE = action.payload.levelType;
+
             index = findObjectIndex(playerList, action.payload.id);
             currentPlayer = playerList[index];
-            if (levelType !== "characterLevel" || currentPlayer["characterLevel"] < 10) {
-                currentPlayer[levelType] +=1;
+
+            if (LEVELTYPE !== "characterLevel" || currentPlayer["characterLevel"] < 10) {
+                currentPlayer[LEVELTYPE] +=1;
                 currentPlayer.combatLevel = updateCombatLevel(currentPlayer);
                 playerList[index] = {...currentPlayer};
             }
@@ -139,9 +161,10 @@ function app (state = initialState, action) {
             });
 
             availableAvatars = updateAvailableAvatars(playerList);
-            const gameSession = {...state.gameSession, playerList: playerList};
+            gameSessionCopy = {...state.gameSession, playerList: playerList};
 
-            return {...state, gameSession, availableAvatars: availableAvatars};
+            return {...state, gameSessionCopy,
+                availableAvatars: availableAvatars};
 
         /**
         *   This sets an editable character, so that it can be edited in the
@@ -150,17 +173,17 @@ function app (state = initialState, action) {
         */
         case 'SET_PLAYER_EDIT':
             debugTools.log("update selected player");
-            const editPlayer = action.payload;
+            const EDITPLAYER = action.payload;
 
             playerList = [...state.gameSession.playerList];
             availableAvatars = updateAvailableAvatars(playerList, action.payload);
-            const currentPlayerObj = findPlayer(playerList, action.payload);
-            let selectedAvatar = currentPlayerObj.avatar
+            const CURRENTPLAYER = findPlayer(playerList, action.payload);
+            let selectedAvatar = CURRENTPLAYER.avatar
 
             return {...state,
                 availableAvatars: availableAvatars,
                 selectedAvatar:  selectedAvatar,
-                editPlayer: editPlayer
+                editPlayer: EDITPLAYER
             };
 
         /**
@@ -171,15 +194,16 @@ function app (state = initialState, action) {
         case 'UNSET_PLAYER_EDIT':
             debugTools.log("unset editable character");
             playerList = [...state.gameSession.playerList];
-            const newSelectione = setSelectedAvatar(state.selectedAvatar, state.availableAvatars);
+            newSelection = setSelectedAvatar(state.selectedAvatar,
+                state.availableAvatars);
 
             availableAvatars = updateAvailableAvatars(playerList);
+
             return {...state,
                 availableAvatars: availableAvatars,
-                selectedAvatar: newSelectione,
+                selectedAvatar: newSelection,
                 editPlayer: null
             };
-
 
         /**
         *   sets the selected avatar to the next in line
@@ -187,7 +211,8 @@ function app (state = initialState, action) {
         case 'NEXT_AVATAR_ID':
             debugTools.log("next id");
             currentChar = {...state.selectedAvatar};
-            charPos = findObjectIndex(state.availableAvatars, currentChar.characterID);
+            charPos = findObjectIndex(state.availableAvatars,
+                currentChar.characterID);
 
             currentChar.characterID = state.availableAvatars[0].id;
 
@@ -204,7 +229,8 @@ function app (state = initialState, action) {
         case 'PREVIOUS_AVATAR_ID':
             debugTools.log("previous id");
             currentChar = {...state.selectedAvatar};
-            charPos = findObjectIndex(state.availableAvatars, currentChar.characterID);
+            charPos = findObjectIndex(state.availableAvatars,
+                currentChar.characterID);
 
             if (charPos > 0) {
                 charPos -= 1
@@ -216,7 +242,7 @@ function app (state = initialState, action) {
 
             return {...state, selectedAvatar: currentChar };
 
-        /*
+        /**
         *   Toggles between the alter ego states of each avatar
         */
         case 'TOGGLE_ALTEREGO':
@@ -251,18 +277,19 @@ export default app;
 *   the next in line will be the very first element again.
 */
 function setSelectedAvatar (previousChar, availableAvatars) {
-    debugTools.log("set selected char");
-    const currentChar = {...previousChar}; // we start from the previous char to set the current one
+    debugTools.log("set selected avatar");
+    // we start from the previous char to set the current one
+    const CURRENTCHAR = {...previousChar};
 
-    let charPos = findObjectIndex(availableAvatars, currentChar.characterID);
+    let charPos = findObjectIndex(availableAvatars, CURRENTCHAR.characterID);
     charPos += 1; //increase to select the next char
 
     if(charPos < availableAvatars.length - 1) {
-        currentChar.characterID = availableAvatars[charPos].id;
+        CURRENTCHAR.characterID = availableAvatars[charPos].id;
     } else {
-        currentChar.characterID = availableAvatars[0].id;
+        CURRENTCHAR.characterID = availableAvatars[0].id;
     }
-    return currentChar;
+    return CURRENTCHAR;
 }
 
 /**
@@ -272,8 +299,8 @@ function setSelectedAvatar (previousChar, availableAvatars) {
 */
 function updateAvailableAvatars(playerList, playerID = null) {
     debugTools.log("update available chars");
-    const avatarListCopy = [...avatarList];
-    const playerCharacters = generatePlayerCharacterIDList(playerList);
+    const AVATARLIST_COPY = [...avatarList];
+    const PLAYERCHARS = generatePlayerCharacterIDList(playerList);
     let currentPlayer = null;
     let avatar = null;
 
@@ -282,11 +309,11 @@ function updateAvailableAvatars(playerList, playerID = null) {
         avatar = currentPlayer.avatar.characterID;
     }
 
-    const availableChars = avatarListCopy.filter((character) => {
-        return (!playerCharacters.includes(character.id) || character.id === avatar);
+    const AVAILABLE_AVATARS = AVATARLIST_COPY.filter((character) => {
+        return (!PLAYERCHARS.includes(character.id) || character.id === avatar);
     });
 
-    return availableChars;
+    return AVAILABLE_AVATARS;
 }
 /**
 *   generatePlayerCharacterIDList will create an array of avatarID's
@@ -308,14 +335,25 @@ function findPlayer (playerList, playerID) {
     } )
 }
 
+/**
+*   findPlayer will return a specific player object from the playerList
+*   after it is matched by ID
+*/
 function findObjectIndex (arr, id) {
     return arr.findIndex(item => item.id === id);
 }
 
+/**
+*   updateCombatLevel returns the sum of characterlevel and gearLevel
+*   combatlevel = characterLevel + gearLevel
+*/
 function updateCombatLevel (player) {
     return player.characterLevel + player.gearLevel;
 }
 
+/**
+*   getNextPlayer will return which player follows after activePlayer
+*/
 function getNextPlayer (playerList, activePlayer) {
     var nextPlayer =  null;
 

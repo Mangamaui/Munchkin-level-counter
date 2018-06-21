@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -6,35 +6,34 @@ import * as actionCreators from '../core/actions';
 import Player from '../player/index';
 
 
-class TurnView extends Component {
-    constructor(props) {
-        super(props);
+const TurnView = (props) => {
 
-        //console.log(this.props.gameSession.activePlayer);
-        this.nextPlayerHandler = this.nextPlayerHandler.bind(this);
-    }
-
-    nextPlayerHandler(e) {
+    /**
+    *   This switches the app to the next player's turn
+    */
+    const NEXT_PLAYER_HANDLER = (e) => {
         e.preventDefault();
-        this.props.actions.updateGame();
-        //this.props.actions.updateView("turns");
+        props.actions.updateGame();
     }
 
-    getPlayerData() {
-        return this.props.playerList[this.props.activePlayer];
+    /**
+    *   get playerdata will get the player object for the active player
+    */
+    const GET_PLAYERDATA = () => {
+        return props.playerList[props.activePlayer];
     }
 
-    render() {
-        const currentPlayer = this.getPlayerData();
+    const CURRENT_PLAYER = GET_PLAYERDATA();
 
-        return (
-            <div>
-                <Player type="full-view" player={currentPlayer} />
-                <button className="btn" onClick={this.nextPlayerHandler}>End turn</button>
-            </div>
-        )
-    }
+    return (
+        <div>
+            <Player type="full-view" player={CURRENT_PLAYER} />
+            <button className="btn"
+                onClick={NEXT_PLAYER_HANDLER}>End turn</button>
+        </div>
+    )
 }
+
 
 const mapStateToProps = (state) => {
     return {
