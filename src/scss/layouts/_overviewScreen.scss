@@ -1,0 +1,44 @@
+.layout-overview_view {
+    @include bigPhone {
+        .playerBadge:not(:first-child) {
+            margin-top: 6px;
+        }
+    }
+
+    @include tablet {
+        .playerList {
+            margin: 0 auto;
+            max-width: 700px;
+            text-align: left;
+        }
+
+        .playerBadge {
+            margin-bottom: 20px;
+            vertical-align: middle;
+
+            &:not(:nth-child(3n+3)) {
+                margin-right: 3vw;
+            }
+
+            h2 {
+                font-size: 1.875rem;
+                margin-top: 5px;
+            }
+        }
+    }
+
+    @include desktop {
+        .playerList {
+            margin: 0 auto;
+            max-width: 740px;
+        }
+
+        .playerBadge {
+            margin-bottom: 20px;
+
+            &:not(:nth-child(3n+3)) {
+                margin-right: 50px;
+            }
+        }
+    }
+}

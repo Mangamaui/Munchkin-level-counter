@@ -1,0 +1,59 @@
+.layout-setup_view {
+    .content__wrap {
+        font-size: 0.875rem;
+        line-height: 1.5em;
+        padding: 50px 0 20px 0;
+
+        .player_count {
+            bottom: 40px;
+            color: black;
+            display: block;
+            position: absolute;
+            width: 100%;
+        }
+
+        .avatarSelector {
+            display: inline-block;
+            margin-bottom: 15px;
+            position: relative;
+
+            .button {
+                display: inline-block;
+                vertical-align: middle;
+            }
+        }
+
+        .player_creator {
+            position: relative;
+        }
+
+        .player_creator__input {
+            margin-bottom: 80px;
+        }
+
+        .button--toggle {
+            display: block;
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+    }
+
+    @include tablet {
+        .content__wrap {
+            font-size: 1.125rem;
+            height: 450px;
+            width: 700px;
+
+            .player_count {
+                bottom: 60px;
+            }
+        }
+
+        .slab__content {
+            padding-bottom: 50px;
+        }
+    }
+}

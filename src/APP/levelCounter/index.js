@@ -28,14 +28,14 @@ const LevelCounter = (props) => {
     }
 
     return (
-        <div className="levelCounter">
-            <h3>{props.levelName}</h3>
-            <button className="levelCounter__decrease-btn"
-                onClick={DECREASE_LEVEL}>-</button>
-            <p className="levelCounter__level">
+        <div className="level_counter">
+            <h3 className="level_counter__label">{props.levelName}</h3>
+            <button className="level_down level_counter__button level_counter__button_down icon-minus"
+                onClick={DECREASE_LEVEL}></button>
+            <p className="level_counter__level level">
                 {props.player[props.levelName]}</p>
-            <button className="levelCounter__increase-btn"
-                onClick={INCREASE_LEVEL}>+</button>
+            <button className="level_up level_counter__button level_cunter__button_up icon-plus"
+                onClick={INCREASE_LEVEL}></button>
         </div>
     )
 

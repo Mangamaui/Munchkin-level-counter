@@ -4,6 +4,8 @@ import { bindActionCreators } from 'redux';
 
 import * as actionCreators from '../core/actions';
 
+import SquareButton from '../button/squareButton';
+
 
 const AvatarSelector = (props) => {
 
@@ -18,17 +20,26 @@ const AvatarSelector = (props) => {
     const ALTSTATE = props.selectedAvatar.alterEgoState;
 
     return (
-        <div className="avatarSelector">
-            <button className="btn controller controller-left"
-                onClick={props.actions.previousAvatarListId}>
-            previous</button>
-            <div className="character">
-                <img src={CHAR.alterEgo[ALTSTATE].image} alt="t"/>
+        <div className="avatar_selector">
+            <SquareButton button_class="previous-btn button--tertiary"
+                button_handler={props.actions.previousAvatarListId}
+                button_text="previous">
+                <i className="icon icon-arrow-left-thick"></i>
+            </SquareButton>
+            <div className="avatar">
+                <img className="avatar__image"
+                    src={CHAR.alterEgo[ALTSTATE].image} alt="t"/>
             </div>
-            <button className="btn controller controller-right"
-                onClick={props.actions.nextAvatarListId}>next</button>
-            <button className="btn"
-                onClick={props.actions.toggleAlterEgo}>Toggle</button>
+            <SquareButton button_class="next-btn button--tertiary"
+                button_handler={props.actions.nextAvatarListId}
+                button_text="next">
+                <i className="icon icon-arrow-right-thick"></i>
+            </SquareButton>
+            <button className="button button--toggle button--square"
+                title="toggle alter ego"
+                onClick={props.actions.toggleAlterEgo}>
+                <i className="icon icon-user"></i>
+            </button>
         </div>
     );
 

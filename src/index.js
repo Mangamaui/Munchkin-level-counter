@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import './app.css';
+import './App.css';
 import App from './App/core/app';
 
 import store from './App/store';
@@ -18,5 +18,5 @@ ReactDOM.render(
     <Provider store={store}>
         <App />
     </Provider>,
-    document.getElementById('root')
+    document.getElementById('container')
 );

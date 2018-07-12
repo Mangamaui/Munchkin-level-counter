@@ -5,6 +5,8 @@ import { bindActionCreators } from 'redux';
 import * as actionCreators from '../core/actions';
 import Player from '../player/index';
 
+import CustomButton from '../button/index';
+
 
 const TurnView = (props) => {
 
@@ -26,10 +28,17 @@ const TurnView = (props) => {
     const CURRENT_PLAYER = GET_PLAYERDATA();
 
     return (
-        <div>
-            <Player type="full-view" player={CURRENT_PLAYER} />
-            <button className="btn"
-                onClick={NEXT_PLAYER_HANDLER}>End turn</button>
+        <div className="turnScreen layout-turn-view view-wrap">
+            <div className="content__wrap">
+                <Player type="full-view" player={CURRENT_PLAYER} />
+            </div>
+            <div className="button__wrap">
+                <CustomButton
+                    button_class="button--primary"
+                    button_handler={NEXT_PLAYER_HANDLER}
+                    button_text="end turn">
+                </CustomButton>
+            </div>
         </div>
     )
 }

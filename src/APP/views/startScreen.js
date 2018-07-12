@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import * as actionCreators from '../core/actions';
+import CustomButton from '../button/index';
 
 
 class StartScreen extends Component {
@@ -15,16 +16,26 @@ class StartScreen extends Component {
         this.handleCreate = this.handleCreate.bind(this);
     }
     //<button className="btn" disabled={this.state.saveGame}>Continue previous game</button>
+    // <button className="btn" onClick={this.handleCreate}>
+    //     Start new game</button>
 
     render() {
         return (
-            <div className="startScreen">
-                <div className="msg">
-                    <p>Welcome to the Munchkin Adventure Time Level Counter!
-                        Start tracking your game by clicking "new game".</p>
+            <div className="startScreen view_wrap layout-start_view">
+                <div className="content__wrap">
+                    <img className="stone_slab mobile_slab" src="assets/images/stone_slab_300.svg" />
+                    <img className="stone_slab desktop_slab" src="assets/images/stone_slab_900.svg" />
+                    <div className="text_wrap">
+                        <p>Welcome to the Munchkin Adventure Time Level Counter!
+                        <br /> Start tracking your game by clicking "new game".</p>
+                    </div>
                 </div>
-                <button className="btn" onClick={this.handleCreate}>
-                    Start new game</button>
+                <div className="button__wrap">
+                    <CustomButton button_class="start-btn button--primary"
+                        button_handler={this.handleCreate}
+                        button_text="start new game">
+                    </CustomButton>
+                </div>
             </div>
         )
     }

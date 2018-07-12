@@ -1,0 +1,59 @@
+@mixin avatar($border, $dimensions) {
+    background-color: white;
+    border-width: $border;
+    border-color: $medium-gray;
+    border-style: solid;
+    border-radius: 50%;
+    height: $dimensions;
+    width: $dimensions;
+}
+
+@mixin button-colorScheme($color, $percentage) {
+    .button_base-color {
+        fill: $color;
+    }
+    .button_gloss {
+        fill: lighten($color, $percentage);
+    }
+    .button_shadow {
+        fill: darken($color, $percentage);
+    }
+}
+
+@mixin centerComponent() {
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@mixin verticallyCenter() {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+
+@mixin phoneOnly() {
+    @media (max-width: $tablet-width -1) {
+        @content;
+    }
+}
+
+@mixin bigPhone() {
+    @media (min-height: #{$big-phone-height}) {
+        @content;
+    }
+}
+
+@mixin tablet() {
+    @media (min-width: #{$tablet-width}) {
+        @content;
+    }
+}
+
+@mixin desktop() {
+    @media (min-width: #{$desktop-width}) {
+        @content;
+    }
+}

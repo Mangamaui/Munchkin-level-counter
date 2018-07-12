@@ -9,16 +9,13 @@ const PlayerList = ({playerList}) => {
     *   This generates the playerList html content
     */
     const LIST = playerList.map((player) => {
-        return (
-            <li key={player.id} className="player-wrap">
-                <Player type="preview" player={player} />
-            </li>);
+        return (<Player type="preview" player={player} key={player.id} />);
     });
 
     return (
-        <ul className="playerList">
+        <div className="playerList">
             {LIST}
-        </ul>
+        </div>
     )
 }
 

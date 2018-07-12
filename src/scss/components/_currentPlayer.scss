@@ -1,0 +1,44 @@
+.current_player {
+
+    h3 {
+        color: $medium-gray;
+        font-size: 1.125rem;
+        margin-bottom: 5px;
+    }
+
+    .current_player__avatar {
+        @include avatar(5px, 90px);
+    }
+
+    .current_player__name {
+        color: $medium-gray;
+        font-size: 24px;
+        margin-bottom: 25px;
+        width: auto;
+    }
+
+    .current_player__combat_level_label {
+        margin-top: 20px;
+    }
+
+    .current_player__combat_level {
+        font-size: 2.25rem;
+        margin: 0 5px;
+        padding-bottom: 10px;
+    }
+
+    .level {
+        width: 4rem;
+    }
+
+    @include tablet {
+        .current_player__avatar {
+            @include avatar(10px, 130px);
+            margin: 5px 0;
+        }
+
+        .level {
+            font-size: 2.5rem;
+        }
+    }
+}

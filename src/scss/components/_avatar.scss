@@ -1,0 +1,16 @@
+.avatar {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 15px;
+    line-height: 0;
+    font-size: 0;
+}
+
+.avatar__image {
+    @include avatar(5px, 100px);
+    background-color: white;
+
+    @include tablet {
+        @include avatar(10px, 160px);
+    }
+}

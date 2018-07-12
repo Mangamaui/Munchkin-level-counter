@@ -1,0 +1,25 @@
+.level_counter {
+    color: white;
+    margin-top: 18px;
+}
+
+.level_counter__label {
+    color: $medium-gray;
+    font-size: 1.125rem;
+}
+
+.level_counter__level {
+    display: inline-block;
+    font-size: 2.25rem;
+    margin: 0 5px;
+    width: auto;
+}
+
+.level_counter__button {
+    background-color: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 2rem;
+}
