@@ -35,15 +35,10 @@ const App = (props) => {
     }
 
     const VIEW = SWITCH_VIEWS(props.view);
-
+    // <h1>Munchkin levelcounter</h1>
     return (
         <div className="App">
-            <header>
-                <h1>Munchkin levelcounter</h1>
-            </header>
-            <div className="container">
-                {VIEW}
-            </div>
+            {VIEW}
         </div>
     );
 }

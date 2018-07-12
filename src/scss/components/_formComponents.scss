@@ -1,0 +1,30 @@
+form {
+    text-align: center;
+
+    input[type="text"] {
+        @include helsinki();
+        background-color: darken($base-gray, 5%);
+        box-shadow: inset $medium-gray -3px 3px 0;
+        border-radius: 8px;
+        border: none;
+        color: white;
+        font-size: 1.125rem;
+        height: 40px;
+        text-align: center;
+        width: 200px;
+
+        &::placeholder {
+            color: $medium-gray;
+        }
+    }
+}
+
+.form_group {
+    display: block;
+    margin: 20px 0;
+    text-align: center;
+
+    button {
+        display: inline-block;
+    }
+}

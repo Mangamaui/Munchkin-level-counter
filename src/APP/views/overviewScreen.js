@@ -5,6 +5,8 @@ import { bindActionCreators } from 'redux';
 import PlayerList from '../player/playerList';
 import * as actionCreators from '../core/actions';
 
+import CustomButton from '../button/index';
+
 
 const OverviewScreen = (props) => {
 
@@ -18,10 +20,15 @@ const OverviewScreen = (props) => {
     }
 
     return (
-        <div>
+        <div className="overviewScreen view_wrap layout-overview_view">
             <PlayerList />
-            <button className="btn"
-                onClick={UPDATE_HANDLER}>Start Playing!</button>
+            <div className="button__wrap">
+                <CustomButton
+                    button_class="button--primary"
+                    button_handler={UPDATE_HANDLER}
+                    button_text="start playing!">
+                </CustomButton>
+            </div>
         </div>
     );
 }

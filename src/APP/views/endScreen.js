@@ -5,6 +5,8 @@ import { avatarList } from '../avatars';
 
 import * as actionCreators from '../core/actions';
 
+import CustomButton from '../button/index';
+
 
 const EndScreen = (props) => {
 
@@ -41,11 +43,28 @@ const EndScreen = (props) => {
     const AVATAR = GET_AVATAR(WINNER);
 
     return (
-        <div>
-            <p><span>{WINNER.name}</span> wins the game</p>
-            <div><img src={AVATAR.alterEgo[EGO].image}  height="100" width="100" alt={AVATAR.alterEgo[EGO].name}/></div>
-
-            <button onClick={RESTART_HANDLER}>Time for another round?</button>
+        <div className="endScreen view_wrap layout-end_view">
+            <div className="content__wrap winner">
+                <img className="stone_slab mobile_slab"
+                    src="assets/images/stone_slab_300.svg" />
+                <img className="stone_slab desktop_slab"
+                    src="assets/images/stone_slab_740x550.svg" />
+                <p className="winner__name">
+                    <span>{WINNER.name}</span> wins the game</p>
+                <img className="winner__avatar"
+                    src={AVATAR.alterEgo[EGO].image}
+                    height="100"
+                    width="100"
+                    alt={AVATAR.alterEgo[EGO].name} />
+                <p className="winner__text">Time for another round?</p>
+            </div>
+            <div className="button__wrap">
+                <CustomButton
+                    button_class="button--primary"
+                    button_handler={RESTART_HANDLER}
+                    button_text="start new game">
+                </CustomButton>
+            </div>
         </div>
     )
 }

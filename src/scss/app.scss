@@ -1,2 +1,24 @@
-@import 'general';
-@import 'buttons';
+@import "variables";
+@import "mixins";
+@import "fonts";
+@import "colors";
+
+//components
+@import "components/buttons";
+@import "components/avatar";
+@import "components/avatarSelector";
+@import "components/contentWrap";
+@import "components/formComponents";
+@import "components/playerBadge";
+@import "components/levelCounter";
+@import "components/currentPlayer";
+@import "components/playerOverview";
+
+
+//layouts
+@import "layouts/startScreen";
+@import "layouts/setupScreen";
+@import "layouts/overviewScreen";
+@import "layouts/turnScreen";
+@import "layouts/endScreen";
+@import "general";

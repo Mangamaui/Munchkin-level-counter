@@ -1,7 +1,19 @@
 * {
-    padding: 0;
     margin: 0;
+    padding: 0;
     outline: none;
+}
+
+h1, h2, h3,h4, h5, h6 {
+    font-weight: normal;
+}
+
+p {
+    display: inline-block;
+    width: 240px;
+    @include tablet {
+        width: 520px;
+    }
 }
 
 html {
@@ -9,67 +21,59 @@ html {
 }
 
 body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
-  font-size: 1rem;
+    @include helsinki();
+    background-image: url('#{$image-path}background-blurred.png');
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-size: cover;
+    color: white;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-width: $min-width;
+    min-height: 100vh;
 }
 
-li {
-    display: block;
-    margin: 10px;
-}
-
-.App {
-    max-width: 900px;
-    margin: 50px auto;
-    padding: 0 50px;
+#container {
+    padding: 10px;
     text-align: center;
+
+    @include bigPhone {
+        padding-top: 30px;
+    }
 }
 
-.characterSelector {
-    display: flex;
-    align-items: center;
+.logo {
+    background-image: url('#{$image-path}adventure_time_logo.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 103px;
+    width: 260px;
+}
 
+h1 {
+    @include bahiana(2.5rem);
+    display: block;
 
-    button {
-        flex-grow: 1;
+    .brand-name {
+        display: block;
+        font-size: 1.875rem;
+    }
+}
+
+@include tablet {
+    .logo {
+        height: 277px;
+        width: 700px;
     }
 
-    .character {
-        flex-grow: 2;
-        // height: 200px;
-        margin: 20px;
-        max-width: 300px;
+    h1 {
+        font-size: 6.25rem;
+        line-height: 0.8em;
+        margin-top: 20px;
 
-        img {
-            width: 100%;
+        .brand-name {
+            font-size: 3.75rem;
         }
     }
-
-}
-
-.add-btn {
-    height: 100px;
-    width: 100px;
-    background-color: white;
-    color: #333;
-    border-radius: 50%;
-    border: 1px solid #333;
-}
-
-.playerOverview {
-    display: flex;
-    margin: 30px 0;
-}
-
-.player + .player {
-    margin-left: 20px;
-}
-
-.placeholder {
-    border-radius: 50%;
-    background-color: #aaa;
-    height: 100px;
-    width: 100px;
 }

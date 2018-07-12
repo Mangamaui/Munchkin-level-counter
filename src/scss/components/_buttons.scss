@@ -1,0 +1,140 @@
+button {
+    cursor:pointer;
+}
+
+.button {
+    @include bahiana(1.5rem);
+    background-color: black;
+    border: 4px solid black;
+    border-radius: 10px;
+    color: white;
+    height: 48px;
+    margin-bottom: 5px;
+    position: relative;
+
+    .button__text {
+        left: 0;
+        line-height: 40px;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 2;
+    }
+
+    &:disabled {
+        opacity: 0.7;
+        cursor: default;
+    }
+
+    svg {
+        border-radius: 6px;
+        width: 100%;
+        white-space: nowrap;
+        z-index: -1;
+    }
+}
+
+.button__wrap {
+    bottom: 3vh;
+    display: block;
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+    width: 302px;
+
+    @include bigPhone {
+        bottom: 30px;
+    }
+
+    @include tablet {
+        width: 100%;
+        transform: none;
+        left: 0;
+
+        .button {
+            &:not(:first-child) {
+                margin-left: 50px;
+            }
+            :first-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+}
+
+.button--primary {
+    @include button-colorScheme($red, 10%);
+    width: 300px;
+}
+
+.button--secundary {
+    @include button-colorScheme($green, 10%);
+    width: 300px;
+}
+
+.button--general {
+    @include button-colorScheme($base-color , 10%);
+    width: 200px;
+
+    svg {
+        height: 100%;
+    }
+}
+
+.button--square {
+    font-size: 2rem;
+    height: 42px;
+    line-height: 1;
+    margin-bottom: 0;
+    width: 42px;
+
+    i {
+        bottom: 0;
+        left: 0;
+        line-height: 38px;
+        position: absolute;
+        width: 100%;
+        z-index: 2;
+    }
+}
+
+.button--tertiary {
+    font-size: 2rem;
+    height: 42px;
+    line-height: 1;
+    margin-bottom: 0;
+    width: 42px;
+
+    svg {
+        height: 100%;
+        width: 100%;
+    }
+
+    i {
+        bottom: 0;
+        left: 0;
+        line-height: 38px;
+        position: absolute;
+        width: 100%;
+        z-index: 2;
+    }
+
+    span {
+        display: none;
+    }
+
+    @include tablet {
+        height: 50px;
+        width: 50px;
+
+        i {
+            line-height: 46px;
+        }
+    }
+}
+
+.button--toggle {
+    background-color: $medium-gray;
+    border-color: $medium-gray;
+    font-size: 1.5rem;
+}

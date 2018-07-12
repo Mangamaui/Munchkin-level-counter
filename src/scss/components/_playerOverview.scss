@@ -1,0 +1,45 @@
+.player_overview {
+    display: flex;
+    justify-content: center;
+    margin: 30px 0;
+
+    .add-btn {
+        height: 100px;
+        width: 100px;
+        background-color: rgba(255, 255, 255, .5);
+        color: #222;
+        border-radius: 50%;
+        font-size: 2.5rem;
+        border: none;
+
+        &:hover {
+            background-color: rgba(255, 255, 255, 1);
+        }
+    }
+
+    .player__avatar {
+        background-color: white;
+        border-radius: 50%;
+    }
+
+    .player + .player {
+        margin-left: 20px;
+    }
+
+    .placeholder {
+        border-radius: 50%;
+        height: 100px;
+        width: 100px;
+
+        background-color: white;
+        opacity: 0.2;
+        border: none;
+
+    }
+}
+
+.player_overview__item {
+    p {
+        width: auto;
+    }
+}

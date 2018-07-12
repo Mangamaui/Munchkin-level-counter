@@ -1,0 +1,11 @@
+.layout-turn-view {
+    @include tablet {
+        .content__wrap {
+            height: 500px;
+            width: 420px;
+        }
+        .button__wrap .button:first-child {
+            margin: 0;
+        }
+    }
+}

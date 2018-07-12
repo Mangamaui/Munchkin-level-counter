@@ -7,6 +7,8 @@ import Player from '../player/index';
 
 import * as actionCreators from '../core/actions';
 
+import CustomButton from '../button/index';
+
 
 class SetupScreen extends Component {
     constructor(props) {
@@ -31,17 +33,31 @@ class SetupScreen extends Component {
         let disabled = PLAYERCOUNT < 3;
 
         return (
-            <div>
-                <p>Start by adding a minimum of 3 players and a maximum
-                    of 6 players to your game</p>
-                <div className="playerbox">
-                    <AvatarSelector />
-                    {FORM}
-                    <ul className="playerOverview">{LIST ? LIST : ""}</ul>
+            <div className="setupScreen view_wrap layout-setup_view">
+                <div className="content__wrap">
+                    <img className="stone_slab mobile_slab"
+                        src="assets/images/stone_slab_300.svg" />
+                    <img className="stone_slab desktop_slab"
+                        src="assets/images/stone_slab_740x550.svg" />
+                    <div className="slab__content">
+                        <p>Start by adding a minimum of 3 players and a maximum
+                        of 6 players to your game</p>
+
+                        <AvatarSelector />
+                        {FORM}
+                    </div>
+                    <ul className="player_overview">
+                        {LIST ? LIST : ""}
+                    </ul>
                 </div>
-                <button className="btn"
-                    onClick={this.viewHandler}
-                    disabled={disabled}>Continue</button>
+                <div className="button__wrap">
+                    <CustomButton
+                        button_class="start-btn button--primary"
+                        button_handler={this.viewHandler}
+                        button_text="continue"
+                        disabled={disabled}>
+                    </CustomButton>
+                </div>
             </div>
 
         );
@@ -134,25 +150,31 @@ class SetupScreen extends Component {
         if(this.props.editPlayer) {
             form = (
                 <form onSubmit={this.updatePlayerHandler} id="updatePlayerForm">
-                    <label htmlFor="playerName">Add the player name:</label>
-                    <br />
                     <input id="playerName" name="playerName" type="text"
                         placeholder="Player name"
                         onChange={this.handleInputChange}/>
-                    <button className="btn" type="submit"
-                        form="updatePlayerForm">Update player</button>
+                    <div className="form_group">
+                        <CustomButton
+                            button_class="button--general"
+                            button_type="submit"
+                            button_text="Update player">
+                        </CustomButton>
+                    </div>
                 </form>
             );
         } else {
             form = (
                 <form onSubmit={this.addPlayerHandler} id="addPlayerForm">
-                    <label htmlFor="playerName">Add the player name:</label>
-                    <br/>
                     <input id="playerName" name="playerName" type="text"
                         placeholder="Player name"
                         onChange={this.handleInputChange}/>
-                    <button className="btn" type="submit"
-                        form="addPlayerForm">Add player</button>
+                    <div className="form_group">
+                        <CustomButton
+                            button_class="button--general"
+                            button_type="submit"
+                            button_text="add player">
+                        </CustomButton>
+                    </div>
                 </form>
             );
 
@@ -192,7 +214,9 @@ class SetupScreen extends Component {
                 let temp;
                 if(index === 0) {
                     temp = <button className="add-btn"
-                        onClick={this.addPlayerHandler}>Add</button>;
+                        onClick={this.addPlayerHandler}>
+                        <i className="icon icon-plus"></i>
+                        </button>;
                 } else {
                     temp = <div className="placeholder"></div>;
                 }
@@ -215,10 +239,10 @@ class SetupScreen extends Component {
         if(PLAYERLIST.length > 0) {
             return PLAYERLIST.map((player) => {
                 let editable = false;
-                let className = "player-preview";
+                let className = "player_overview__item";
                 if(player.id === this.props.editPlayer) {
                     editable = true;
-                    className += " player-preview--active";
+                    className += " player_overview__item--active";
                 }
                 return <li key={player.id} className={className}>
                     <Player player={player}
@@ -239,8 +263,6 @@ class SetupScreen extends Component {
         const TARGET = e.currentTarget;
 
         if(this.props.editPlayer !== TARGET.dataset.id) {
-            e.currentTarget.classList.add("player-preview--active");
-
             this.props.actions.setPlayerEdit(TARGET.dataset.id);
         }
         return false;
