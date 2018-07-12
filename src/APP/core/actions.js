@@ -69,8 +69,13 @@ export function endGame(gameData) {
     }
 }
 
-export function addPlayer(playerName) {
+export function unsetPlayerEdit() {
+    return {
+        type: 'UNSET_PLAYER_EDIT'
+    }
+}
 
+export function addPlayer(playerName) {
 
     return (dispatch, getState) => {
         const ID = getState().app.gameSession.playerList.length + 1;
@@ -139,9 +144,18 @@ export function increasePlayerLevel(playerID, levelType) {
 }
 
 export function deletePlayer(playerID) {
-    return {
-        type: 'DELETE_PLAYER',
-        payload: playerID
+    return(dispatch, getState) => {
+
+        if(getState().app.editPlayer !== null) {
+            dispatch({
+                type: 'UNSET_PLAYER_EDIT'
+            })
+        }
+
+        dispatch({
+            type: 'DELETE_PLAYER',
+            payload: playerID
+        })
     }
 }
 

@@ -1,4 +1,13 @@
 .layout-turn-view {
+    .content__wrap {
+        img.desktop_slab {
+            display: block;
+        }
+        img.mobile_slab {
+            display: none;
+        }
+    }
+    
     @include tablet {
         .content__wrap {
             height: 500px;
