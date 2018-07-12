@@ -46,8 +46,10 @@ const EndScreen = (props) => {
         <div className="endScreen view_wrap layout-end_view">
             <div className="content__wrap winner">
                 <img className="stone_slab mobile_slab"
+                    alt="stone slab"
                     src="assets/images/stone_slab_300.svg" />
                 <img className="stone_slab desktop_slab"
+                    alt="stone slab"
                     src="assets/images/stone_slab_740x550.svg" />
                 <p className="winner__name">
                     <span>{WINNER.name}</span> wins the game</p>

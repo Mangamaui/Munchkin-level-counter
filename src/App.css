@@ -8,8 +8,8 @@
 
 @font-face {
   font-family: 'mlc-icons';
-  src: url("/assets/fonts/mlc-icons.eot?9c4bc");
-  src: url("/assets/fonts/mlc-icons.ot?9c4bc#iefix") format("embedded-opentype"), url("/assets/fonts/mlc-icons.ttf?9c4bc") format("truetype"), url("/assets/fonts/mlc-icons.woff?9c4bc") format("woff"), url("/assets/fonts/mlc-icons.svg?9c4bc#mlc-icons") format("svg");
+  src: url("/assets/fonts/mlc-icons.eot?6ri66s");
+  src: url("/assets/fonts/mlc-icons.ot?6ri66s#iefix") format("embedded-opentype"), url("/assets/fonts/mlc-icons.ttf?6ri66s") format("truetype"), url("/assets/fonts/mlc-icons.woff?6ri66s") format("woff"), url("/assets/fonts/mlc-icons.svg?6ri66s#mlc-icons") format("svg");
   font-weight: normal;
   font-style: normal; }
 
@@ -40,6 +40,9 @@
 
 .icon-user:before {
   content: "\e904"; }
+
+.icon-trash:before {
+  content: "\e905"; }
 
 button {
   cursor: pointer; }
@@ -112,7 +115,7 @@ button {
 .button--general {
   width: 200px; }
   .button--general .button_base-color {
-    fill: #333; }
+    fill: #333333; }
   .button--general .button_gloss {
     fill: #4d4d4d; }
   .button--general .button_shadow {
@@ -133,6 +136,8 @@ button {
     position: absolute;
     width: 100%;
     z-index: 2; }
+  .button--square span {
+    display: none; }
 
 .button--tertiary {
   font-size: 2rem;
@@ -158,6 +163,22 @@ button {
       width: 50px; }
       .button--tertiary i {
         line-height: 46px; } }
+
+.button_pair button:first-of-type {
+  width: 145px; }
+
+.button_pair button:nth-of-type(2) {
+  font-size: 1.6rem;
+  height: 48px;
+  width: 48px; }
+  .button_pair button:nth-of-type(2) .button_base-color {
+    fill: #969696; }
+  .button_pair button:nth-of-type(2) .button_gloss {
+    fill: #bcbcbc; }
+  .button_pair button:nth-of-type(2) .button_shadow {
+    fill: #707070; }
+  .button_pair button:nth-of-type(2) i {
+    line-height: 42px; }
 
 .button--toggle {
   background-color: #505050;
@@ -189,6 +210,14 @@ button {
       border-radius: 50%;
       height: 160px;
       width: 160px; } }
+
+.avatar_selector {
+  display: inline-block;
+  margin-bottom: 15px;
+  position: relative; }
+  .avatar_selector .button {
+    display: inline-block;
+    vertical-align: middle; }
 
 .content__wrap {
   margin: 0 auto;
@@ -237,26 +266,28 @@ form {
   text-align: center; }
   .form_group button {
     display: inline-block; }
+  .form_group button + button {
+    margin-left: 5px; }
 
-.playerBadge {
+.player_badge {
   align-items: center;
   display: flex;
   height: 60px;
   padding: 10px 12.5vw;
   position: relative;
   text-align: left; }
-  .playerBadge .stone_slab {
+  .player_badge .stone_slab {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     z-index: -1; }
-  .playerBadge .mobile_slab {
+  .player_badge .mobile_slab {
     display: block; }
-  .playerBadge .desktop_slab {
+  .player_badge .desktop_slab {
     display: none; }
-  .playerBadge .playerBadge__avatar {
+  .player_badge .player_badge__avatar {
     background-color: white;
     border-width: 3px;
     border-color: #505050;
@@ -265,28 +296,28 @@ form {
     height: 50px;
     width: 50px;
     flex-shrink: 0; }
-  .playerBadge p {
+  .player_badge p {
     width: auto; }
-  .playerBadge .playerBadge__name {
+  .player_badge .player_badge__name {
     color: #505050;
     font-size: 1rem;
     flex: 1;
     margin: 0 10px; }
-  .playerBadge .PlayerBadge__level {
+  .player_badge .player_badge__level {
     font-size: 1.875rem;
     text-align: right; }
   @media (min-width: 768px) {
-    .playerBadge {
+    .player_badge {
       display: inline-block;
       height: 240px;
       padding: 35px 20px 20px 20px;
       text-align: center;
       width: 172px; }
-      .playerBadge .mobile_slab {
+      .player_badge .mobile_slab {
         display: none; }
-      .playerBadge .desktop_slab {
+      .player_badge .desktop_slab {
         display: inline-block; }
-      .playerBadge .playerBadge__avatar {
+      .player_badge .player_badge__avatar {
         background-color: white;
         border-width: 10px;
         border-color: #505050;
@@ -296,14 +327,14 @@ form {
         width: 100px;
         margin-bottom: 5px;
         background-color: white; }
-      .playerBadge .playerBadge__name {
+      .player_badge .player_badge__name {
         font-size: 1.125rem; }
-      .playerBadge .playerBadge__level {
+      .player_badge .player_badge__level {
         font-size: 2.5rem;
         position: absolute;
         bottom: 30px;
         left: 0; }
-      .playerBadge .playerBadge__text {
+      .player_badge .player_badge__text {
         display: block;
         margin: 0;
         text-align: center;
@@ -376,34 +407,96 @@ form {
     font-size: 2.5rem; } }
 
 .player_overview {
-  display: flex;
-  justify-content: center;
-  margin: 30px 0; }
-  .player_overview .add-btn {
-    height: 100px;
-    width: 100px;
-    background-color: rgba(255, 255, 255, 0.5);
-    color: #222;
-    border-radius: 50%;
-    font-size: 2.5rem;
-    border: none; }
-    .player_overview .add-btn:hover {
-      background-color: white; }
+  position: relative;
+  margin: 7px auto; }
+  @media (min-width: 768px) {
+    .player_overview {
+      display: flex;
+      justify-content: center;
+      margin: 30px auto; } }
+  .player_overview li {
+    display: inline-block;
+    vertical-align: top;
+    margin: 10px 5px; }
+    @media (min-width: 768px) {
+      .player_overview li {
+        margin: 10px; } }
+    .player_overview li:first-of-type {
+      margin-left: 0; }
+    .player_overview li:last-of-type {
+      margin-right: 0; }
   .player_overview .player__avatar {
     background-color: white;
-    border-radius: 50%; }
+    border-radius: 50%;
+    border: none;
+    height: 50px;
+    width: 50px; }
+    @media (min-width: 768px) {
+      .player_overview .player__avatar {
+        height: 100px;
+        width: 100px; } }
+    .player_overview .player__avatar:hover {
+      cursor: pointer; }
   .player_overview .player + .player {
     margin-left: 20px; }
   .player_overview .placeholder {
     border-radius: 50%;
-    height: 100px;
-    width: 100px;
     background-color: white;
+    border: none;
     opacity: 0.2;
-    border: none; }
+    height: 50px;
+    width: 50px; }
+    @media (min-width: 768px) {
+      .player_overview .placeholder {
+        height: 100px;
+        width: 100px; } }
 
 .player_overview__item p {
-  width: auto; }
+  display: none; }
+
+.player_overview__item--active .player__avatar {
+  border: 4px solid #FFD32C;
+  height: 42px;
+  width: 42px; }
+  @media (min-width: 768px) {
+    .player_overview__item--active .player__avatar {
+      border: 7px solid #FFD32C;
+      height: 86px;
+      width: 86px; } }
+
+.button__circular {
+  height: 50px;
+  width: 50px;
+  border: none;
+  background-color: white;
+  color: #1a1a1a;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  transition: all 300ms; }
+  @media (min-width: 768px) {
+    .button__circular {
+      font-size: 2.5rem;
+      height: 100px;
+      width: 100px; } }
+  .button__circular:hover {
+    background-color: rgba(255, 255, 255, 0.5); }
+
+.button__circular--edit {
+  background-color: rgba(255, 255, 255, 0.7);
+  color: #1a1a1a; }
+
+.player_creator {
+  position: relative; }
+
+.player_creator__input {
+  margin-bottom: 80px; }
+
+.button--toggle {
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%); }
 
 .layout-start_view .content__wrap {
   height: 300px;
@@ -457,42 +550,17 @@ form {
   font-size: 0.875rem;
   line-height: 1.5em;
   padding: 50px 0 20px 0; }
-  .layout-setup_view .content__wrap .player_count {
-    bottom: 40px;
-    color: black;
-    display: block;
-    position: absolute;
-    width: 100%; }
-  .layout-setup_view .content__wrap .avatarSelector {
-    display: inline-block;
-    margin-bottom: 15px;
-    position: relative; }
-    .layout-setup_view .content__wrap .avatarSelector .button {
-      display: inline-block;
-      vertical-align: middle; }
-  .layout-setup_view .content__wrap .player_creator {
-    position: relative; }
-  .layout-setup_view .content__wrap .player_creator__input {
-    margin-bottom: 80px; }
-  .layout-setup_view .content__wrap .button--toggle {
-    display: block;
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%); }
 
 @media (min-width: 768px) {
   .layout-setup_view .content__wrap {
     font-size: 1.125rem;
     height: 450px;
     width: 700px; }
-    .layout-setup_view .content__wrap .player_count {
-      bottom: 60px; }
   .layout-setup_view .slab__content {
     padding-bottom: 50px; } }
 
 @media (min-height: 600px) {
-  .layout-overview_view .playerBadge:not(:first-child) {
+  .layout-overview_view .player_badge:not(:first-child) {
     margin-top: 6px; } }
 
 @media (min-width: 768px) {
@@ -500,12 +568,12 @@ form {
     margin: 0 auto;
     max-width: 700px;
     text-align: left; }
-  .layout-overview_view .playerBadge {
+  .layout-overview_view .player_badge {
     margin-bottom: 20px;
     vertical-align: middle; }
-    .layout-overview_view .playerBadge:not(:nth-child(3n+3)) {
+    .layout-overview_view .player_badge:not(:nth-child(3n+3)) {
       margin-right: 3vw; }
-    .layout-overview_view .playerBadge h2 {
+    .layout-overview_view .player_badge h2 {
       font-size: 1.875rem;
       margin-top: 5px; } }
 
@@ -513,10 +581,16 @@ form {
   .layout-overview_view .playerList {
     margin: 0 auto;
     max-width: 740px; }
-  .layout-overview_view .playerBadge {
+  .layout-overview_view .player_badge {
     margin-bottom: 20px; }
-    .layout-overview_view .playerBadge:not(:nth-child(3n+3)) {
+    .layout-overview_view .player_badge:not(:nth-child(3n+3)) {
       margin-right: 50px; } }
+
+.layout-turn-view .content__wrap img.desktop_slab {
+  display: block; }
+
+.layout-turn-view .content__wrap img.mobile_slab {
+  display: none; }
 
 @media (min-width: 768px) {
   .layout-turn-view .content__wrap {
@@ -574,10 +648,6 @@ p {
     p {
       width: 520px; } }
 
-li {
-  display: block;
-  margin: 10px; }
-
 html {
   font-size: 16px; }
 
@@ -629,15 +699,3 @@ h1 {
     margin-top: 20px; }
     h1 .brand-name {
       font-size: 3.75rem; } }
-
-.characterSelector {
-  display: flex;
-  align-items: center; }
-  .characterSelector button {
-    flex-grow: 1; }
-  .characterSelector .character {
-    flex-grow: 2;
-    margin: 20px;
-    max-width: 300px; }
-    .characterSelector .character img {
-      width: 100%; }

@@ -156,6 +156,7 @@ function app (state = initialState, action) {
         */
         case 'DELETE_PLAYER':
             debugTools.log('delete player');
+
             playerList = state.gameSession.playerList.filter((player) => {
                 return player.id !== action.payload;
             });
@@ -163,7 +164,7 @@ function app (state = initialState, action) {
             availableAvatars = updateAvailableAvatars(playerList);
             gameSessionCopy = {...state.gameSession, playerList: playerList};
 
-            return {...state, gameSessionCopy,
+            return {...state, gameSession: gameSessionCopy,
                 availableAvatars: availableAvatars};
 
         /**

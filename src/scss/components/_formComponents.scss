@@ -27,4 +27,8 @@ form {
     button {
         display: inline-block;
     }
+
+    button + button {
+        margin-left: 5px;
+    }
 }

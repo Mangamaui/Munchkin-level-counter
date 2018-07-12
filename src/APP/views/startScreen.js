@@ -23,8 +23,12 @@ class StartScreen extends Component {
         return (
             <div className="startScreen view_wrap layout-start_view">
                 <div className="content__wrap">
-                    <img className="stone_slab mobile_slab" src="assets/images/stone_slab_300.svg" />
-                    <img className="stone_slab desktop_slab" src="assets/images/stone_slab_900.svg" />
+                    <img className="stone_slab mobile_slab"
+                        src="assets/images/stone_slab_300.svg"
+                        alt="stone slab" />
+                    <img className="stone_slab desktop_slab"
+                        src="assets/images/stone_slab_900.svg"
+                        alt="stone slab" />
                     <div className="text_wrap">
                         <p>Welcome to the Munchkin Adventure Time Level Counter!
                         <br /> Start tracking your game by clicking "new game".</p>

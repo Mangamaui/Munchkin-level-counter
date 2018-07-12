@@ -96,6 +96,10 @@ button {
         width: 100%;
         z-index: 2;
     }
+
+    span {
+        display: none;
+    }
 }
 
 .button--tertiary {
@@ -131,6 +135,24 @@ button {
             line-height: 46px;
         }
     }
+}
+
+.button_pair {
+    button:first-of-type {
+        width: 145px;
+    }
+
+    button:nth-of-type(2) {
+        @include button-colorScheme($base-gray, 15%);
+        font-size: 1.6rem;
+        height: 48px;
+        width: 48px;
+
+        i {
+            line-height: 42px;
+        }
+    }
+
 }
 
 .button--toggle {

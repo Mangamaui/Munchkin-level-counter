@@ -57,3 +57,8 @@
         @content;
     }
 }
+
+@mixin player-preview-size($size: 50px) {
+    height: $size;
+    width: $size;
+}
