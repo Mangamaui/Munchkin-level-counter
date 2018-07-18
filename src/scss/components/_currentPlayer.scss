@@ -42,3 +42,26 @@
         }
     }
 }
+
+.avatar__wrap {
+    position: relative;
+}
+
+.current_player__defeat_btn {
+    font-size: 1.4rem;
+    line-height: 1;
+    position: absolute;
+    left: 57%;
+    top: 0px;
+    height: 42px;
+    width: 42px;
+
+    @include tablet {
+        left: 60%;
+        top: 10px;
+        height: 50px;
+        width: 50px;
+
+    }
+
+}

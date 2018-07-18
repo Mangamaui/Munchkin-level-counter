@@ -5,6 +5,7 @@ import StartScreen from '../views/startScreen';
 import SetupScreen from '../views/setupScreen';
 import OverviewScreen from '../views/overviewScreen';
 import TurnView from '../views/turnView';
+import DefeatScreen from '../views/defeatScreen';
 import EndScreen from '../views/endScreen';
 
 const App = (props) => {
@@ -25,6 +26,9 @@ const App = (props) => {
 
             case "turns":
                 return (<TurnView />);
+
+            case "defeat":
+                return(<DefeatScreen />);
 
             case "winner":
                 return (<EndScreen />);

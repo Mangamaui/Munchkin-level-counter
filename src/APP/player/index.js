@@ -3,7 +3,6 @@ import { avatarList } from '../avatars';
 
 import LevelCounter from '../levelCounter';
 
-
 const Player = (props) => {
 
     const GET_CLASSNAME = (type) => {
@@ -39,14 +38,26 @@ const Player = (props) => {
 
             case "preview":
             case "full-view":
+                const DEFEAT_BTN = (<React.Fragment>
+                    <button className="button button--circular current_player__defeat_btn"
+                        title="mark player as defeated"
+                        onClick={props.handler}
+                        >
+                        <i className="icon icon-death"></i>
+                    </button>
+                    </React.Fragment>
+                );
+
                 const template = type === "preview"
                     ? <p className="player_badge__level player_badge__text"><b>{CURRENT_PLAYER.characterLevel}</b></p>
-                    : (<div className="level--wrap">
+                    : (<React.Fragment>
+                        <div className="level--wrap">
                             <LevelCounter player={CURRENT_PLAYER} levelName="characterLevel" />
                             <LevelCounter player={CURRENT_PLAYER} levelName="gearLevel" />
                             <h3 className="current_player__combat_level_label">CombatLevel</h3>
                             <p className="current_player__combat_level level">{CURRENT_PLAYER.combatLevel}</p>
-                        </div>)
+                        </div>
+                        </React.Fragment>)
 
                 return (
                     <React.Fragment>
@@ -56,12 +67,14 @@ const Player = (props) => {
                         <img className="stone_slab desktop_slab"
                             alt="stone slab"
                             src="assets/images/stone_slab_300.svg" />
-                        <div>
+                        <div className="avatar__wrap">
                             <img src={AVATAR.alterEgo[EGO].image}
                                 className={CLASSNAME + "__avatar"}
                                 height="100"
                                 width="100"
                                 alt={AVATAR.alterEgo[EGO].name}/>
+                                {type === "full-view" && DEFEAT_BTN}
+
                         </div>
                         <p className={CLASSNAME + "__name"}>{CURRENT_PLAYER.name}</p>
                         {template}
