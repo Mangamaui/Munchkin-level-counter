@@ -2,9 +2,9 @@ import { clearState } from './localstorage';
 import store from '../store';
 
 const PLAYER = {
-    id: "",
-    name: "",
-    avatar: "",
+    id: '',
+    name: '',
+    avatar: '',
     tablePosition: 0,
     characterLevel: 0,
     gearLevel: 0,
@@ -50,9 +50,7 @@ export function updateGame() {
                 payload: 'winner'
             });
         }
-
     }
-
 }
 
 export function deleteGame() {
@@ -94,7 +92,7 @@ export function addPlayer(playerName) {
         }
 
         if (checkPlayerLimit()) {
-            console.log("too many players");
+            console.log('too many players');
 
             dispatch({
                 type: 'MSG'
@@ -120,6 +118,16 @@ export function updatePlayer(playerID, playerName) {
                 avatar: getState().app.selectedAvatar
             }
         });
+    }
+}
+
+export function resetDefeatedPlayer(playerID) {
+    return(dispatch, getState) => {
+
+        dispatch({
+            type: 'RESET_DEFEATED_PLAYER',
+            payload: playerID
+        })
     }
 }
 
