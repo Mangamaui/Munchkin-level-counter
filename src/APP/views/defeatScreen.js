@@ -116,7 +116,7 @@ class DefeatScreen extends Component {
     removePlayerHandler(e) {
         e.preventDefault();
 
-        this.props.actions.deletePlayer(this.state.activePlayer.id);
+        this.props.actions.deletePlayer(this.state.activePlayer.id, 'inGame');
         this.props.actions.updateView("turns");
 
         return false;

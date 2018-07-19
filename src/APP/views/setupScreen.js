@@ -124,7 +124,7 @@ class SetupScreen extends Component {
         e.preventDefault();
         const TARGET = e.currentTarget;
 
-        this.props.actions.deletePlayer(this.props.editPlayer);
+        this.props.actions.deletePlayer(this.props.editPlayer, 'setup');
 
         this.clearInput(TARGET.querySelectorAll('input'));
 

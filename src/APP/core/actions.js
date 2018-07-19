@@ -151,7 +151,7 @@ export function increasePlayerLevel(playerID, levelType) {
     }
 }
 
-export function deletePlayer(playerID) {
+export function deletePlayer(playerID, deletePhase) {
     return(dispatch, getState) => {
 
         if(getState().app.editPlayer !== null) {
@@ -162,7 +162,10 @@ export function deletePlayer(playerID) {
 
         dispatch({
             type: 'DELETE_PLAYER',
-            payload: playerID
+            payload: {
+                playerID: playerID,
+                deletePhase: deletePhase
+            }
         })
     }
 }
@@ -202,6 +205,8 @@ export function toggleEditMode() {
 /*============================================================================*/
 /*                             Helper functions                               */
 /*============================================================================*/
+
+
 function checkForWinner() {
     const STATE = store.getState();
     return STATE.app.gameSession.playerList.find((player) => {

@@ -175,11 +175,17 @@ function app (state = initialState, action) {
             debugTools.log('delete player');
 
             playerList = state.gameSession.playerList.filter((player) => {
-                return player.id !== action.payload;
+                return player.id !== action.payload.playerID;
             });
 
+            let updatedPlayerList = playerList;
+
+            if(action.payload.deletePhase === 'setup') {
+                updatedPlayerList = updatePlayerList(playerList);
+            }
+
             availableAvatars = updateAvailableAvatars(playerList);
-            gameSessionCopy = {...state.gameSession, playerList: playerList};
+            gameSessionCopy = {...state.gameSession, playerList: updatedPlayerList};
 
             return {...state,
                 gameSession: gameSessionCopy,
@@ -198,8 +204,6 @@ function app (state = initialState, action) {
             availableAvatars = updateAvailableAvatars(playerList, action.payload);
             const CURRENTPLAYER = findPlayer(playerList, action.payload);
             let selectedAvatar = CURRENTPLAYER.avatar
-            console.log(action.payload);
-            console.log(selectedAvatar);
 
             return {...state,
                 availableAvatars: availableAvatars,
@@ -292,6 +296,27 @@ export default app;
 /*============================================================================*/
 
 
+
+/**
+*   renamePlayers loops over the players objects and updates their id and name
+*   (only automatic generated names) based on their position in the list
+*/
+function updatePlayerList (playerList) {
+    debugTools.log('Update Player list');
+    let counter = 1;
+
+    playerList.forEach((player) => {
+        player.id = `player${counter}`;
+
+        if(player.name.includes('player')) {
+            player.name = `player ${counter}`;
+        }
+        counter++;
+    })
+
+    return playerList;
+}
+
 /**
 *   setSelectedAvatar takes the currently selected Avatar
 *   and returns the next in line. When you reach the end of the array,
@@ -318,7 +343,7 @@ function setSelectedAvatar (previousChar, availableAvatars) {
 *   by players from the playerList. Except when a playerID is being passed,
 *   this will inlcude the avatar from that specific player.
 */
-function updateAvailableAvatars(playerList, playerID = null) {
+function updateAvailableAvatars (playerList, playerID = null) {
     debugTools.log("update available chars");
     const AVATARLIST_COPY = [...avatarList];
     const PLAYERCHARS = generatePlayerCharacterIDList(playerList);
