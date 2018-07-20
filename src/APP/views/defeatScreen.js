@@ -36,9 +36,10 @@ class DefeatScreen extends Component {
                         alt="stone slab"
                         src="assets/images/stone_slab_740x550.svg" />
                     <div className="slab__content">
-                        <p>You can choose to continue playing with your
+                        <p>You can choose to continue playing with your <br />
                         <span className="text_accent">current character</span>,
                         a <span className="text_accent">new character</span> or
+                        <br/>
                         <span className="text_accent">remove the defeated player
                         </span> from the game.</p>
 
