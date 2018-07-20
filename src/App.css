@@ -498,6 +498,14 @@ form {
 
 .player_overview__item p {
   display: none; }
+  @media (min-height: 800px) {
+    .player_overview__item p {
+      display: inline-block;
+      font-size: 0.9rem;
+      line-height: 1.4em;
+      margin: 7px 0;
+      max-width: 80px;
+      width: auto; } }
 
 .player_overview__item--active .player__avatar {
   border: 4px solid #FFD32C;

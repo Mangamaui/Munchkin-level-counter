@@ -12,8 +12,6 @@
             margin: 20px auto;
         }
 
-
-
     li {
         display: inline-block;
         vertical-align: top;
@@ -63,15 +61,21 @@
         @include tablet {
             @include player-preview-size(80px);
         }
-
-
-
     }
 }
 
 .player_overview__item {
     p {
         display: none;
+
+        @include verticalTablet {
+            display: inline-block;
+            font-size: 0.9rem;
+            line-height: 1.4em;
+            margin: 7px 0;
+            max-width: 80px;
+            width: auto;
+        }
     }
 }
 
