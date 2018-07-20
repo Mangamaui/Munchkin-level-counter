@@ -36,11 +36,11 @@ $icon-trash: "\e905";
 
 @font-face {
     font-family: 'mlc-icons';
-    src:  url('#{$font-path}/mlc-icons.eot?6ri66s');
-    src:  url('#{$font-path}/mlc-icons.ot?6ri66s#iefix') format('embedded-opentype'),
-    url('#{$font-path}/mlc-icons.ttf?6ri66s') format('truetype'),
-    url('#{$font-path}/mlc-icons.woff?6ri66s') format('woff'),
-    url('#{$font-path}/mlc-icons.svg?6ri66s#mlc-icons') format('svg');
+    src:  url('#{$font-path}/mlc-icons.eot?7jgvle');
+    src:  url('#{$font-path}/mlc-icons.eot?7jgvle#iefix') format('embedded-opentype'),
+    url('#{$font-path}/mlc-icons.ttf?7jgvle') format('truetype'),
+    url('#{$font-path}/mlc-icons.woff?7jgvle') format('woff'),
+    url('#{$font-path}/mlc-icons.svg?7jgvle#mlc-icons') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -60,6 +60,12 @@ $icon-trash: "\e905";
     -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-dead:before {
+  content: "\e906";
+}
+.icon-death:before {
+  content: "\e907";
+}
 .icon-plus:before {
   content: "\e900";
 }

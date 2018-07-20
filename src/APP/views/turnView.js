@@ -27,10 +27,18 @@ const TurnView = (props) => {
 
     const CURRENT_PLAYER = GET_PLAYERDATA();
 
+    const DEFEATED_PLAYER_HANDLER = (e) => {
+        e.preventDefault();
+        props.actions.setPlayerEdit(CURRENT_PLAYER.id);
+        props.actions.updateView("defeat");
+    }
+
     return (
         <div className="turnScreen layout-turn-view view-wrap">
             <div className="content__wrap">
-                <Player type="full-view" player={CURRENT_PLAYER} />
+                <Player type="full-view"
+                    player={CURRENT_PLAYER}
+                    handler={DEFEATED_PLAYER_HANDLER} />
             </div>
             <div className="button__wrap">
                 <CustomButton

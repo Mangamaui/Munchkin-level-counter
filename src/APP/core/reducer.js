@@ -15,7 +15,7 @@ const initialState = {
     },
     availableAvatars: [...avatarList],
     editPlayer: null,
-    view: "start"
+    view: 'start'
 }
 
 
@@ -35,14 +35,14 @@ function app (state = initialState, action) {
         *   Create game resets all data by returning a copy of the initial state
         */
         case 'CREATE_GAME':
-            debugTools.log("game created");
+            debugTools.log('game created');
             return {...initialState};
 
         /**
         *   Load game will the last localstorage entry
         */
         case 'LOAD_GAME':
-            debugTools.log("game loaded");
+            debugTools.log('game loaded');
             return state;
 
         /**
@@ -50,7 +50,7 @@ function app (state = initialState, action) {
         *   and set a new next player
         */
         case 'UPDATE_GAME':
-            debugTools.log("game updated");
+            debugTools.log('game updated');
 
             var activePlayer = state.gameSession.activePlayer;
             if(activePlayer === null) {
@@ -75,7 +75,7 @@ function app (state = initialState, action) {
         *   available avatarList
         */
         case 'ADD_PLAYER':
-            debugTools.log("added player");
+            debugTools.log('added player');
             playerList = [...state.gameSession.playerList, action.payload];
 
             newSelection = setSelectedAvatar(state.selectedAvatar,
@@ -108,7 +108,7 @@ function app (state = initialState, action) {
             gameSessionCopy = {...state.gameSession, playerList: playerList};
 
             return {...state,
-                gameSessionCopy,
+                gameSession: gameSessionCopy,
                 availableAvatars: availableAvatars,
                 selectedAvatar: newSelection,
                 editPlayer: null
@@ -142,11 +142,28 @@ function app (state = initialState, action) {
             index = findObjectIndex(playerList, action.payload.id);
             currentPlayer = playerList[index];
 
-            if (LEVELTYPE !== "characterLevel" || currentPlayer["characterLevel"] < 10) {
+            if (LEVELTYPE !== 'characterLevel' || currentPlayer['characterLevel'] < 10) {
                 currentPlayer[LEVELTYPE] +=1;
                 currentPlayer.combatLevel = updateCombatLevel(currentPlayer);
                 playerList[index] = {...currentPlayer};
             }
+
+            return {...state,
+                gameSession: { ...state.gameSession, playerList }};
+
+
+        /**
+        *   reset the defeated player's gear level
+        */
+        case'RESET_DEFEATED_PLAYER':
+            debugTools.log('reset defeated player gear level');
+            playerList = [...state.gameSession.playerList];
+
+            index = findObjectIndex(playerList, action.payload);
+            currentPlayer = playerList[index];
+
+            currentPlayer.gearLevel = 0;
+            playerList[index] = {...currentPlayer};
 
             return {...state,
                 gameSession: { ...state.gameSession, playerList }};
@@ -158,13 +175,20 @@ function app (state = initialState, action) {
             debugTools.log('delete player');
 
             playerList = state.gameSession.playerList.filter((player) => {
-                return player.id !== action.payload;
+                return player.id !== action.payload.playerID;
             });
 
-            availableAvatars = updateAvailableAvatars(playerList);
-            gameSessionCopy = {...state.gameSession, playerList: playerList};
+            let updatedPlayerList = playerList;
 
-            return {...state, gameSession: gameSessionCopy,
+            if(action.payload.deletePhase === 'setup') {
+                updatedPlayerList = updatePlayerList(playerList);
+            }
+
+            availableAvatars = updateAvailableAvatars(playerList);
+            gameSessionCopy = {...state.gameSession, playerList: updatedPlayerList};
+
+            return {...state,
+                gameSession: gameSessionCopy,
                 availableAvatars: availableAvatars};
 
         /**
@@ -173,7 +197,7 @@ function app (state = initialState, action) {
         *   currently selected player's avatar is included in the results.
         */
         case 'SET_PLAYER_EDIT':
-            debugTools.log("update selected player");
+            debugTools.log('update selected player');
             const EDITPLAYER = action.payload;
 
             playerList = [...state.gameSession.playerList];
@@ -193,7 +217,7 @@ function app (state = initialState, action) {
         *   included anymore
         */
         case 'UNSET_PLAYER_EDIT':
-            debugTools.log("unset editable character");
+            debugTools.log('unset editable character');
             playerList = [...state.gameSession.playerList];
             newSelection = setSelectedAvatar(state.selectedAvatar,
                 state.availableAvatars);
@@ -228,7 +252,7 @@ function app (state = initialState, action) {
         *   sets the selected avatar to the previous avatar in line
         */
         case 'PREVIOUS_AVATAR_ID':
-            debugTools.log("previous id");
+            debugTools.log('previous id');
             currentChar = {...state.selectedAvatar};
             charPos = findObjectIndex(state.availableAvatars,
                 currentChar.characterID);
@@ -247,14 +271,14 @@ function app (state = initialState, action) {
         *   Toggles between the alter ego states of each avatar
         */
         case 'TOGGLE_ALTEREGO':
-            debugTools.log("toggle alt");
+            debugTools.log('toggle alt');
             currentChar = {...state.selectedAvatar};
             currentChar.alterEgoState = state.selectedAvatar.alterEgoState === 0 ? 1 : 0;
 
             return {...state, selectedAvatar: currentChar };
 
         case 'TOGGLE_EDIT_MODE':
-            debugTools.log("toggle editMode");
+            debugTools.log('toggle editMode');
             const editMode = state.editMode === false ? true : false;
 
             return {...state, editMode};
@@ -272,13 +296,34 @@ export default app;
 /*============================================================================*/
 
 
+
+/**
+*   renamePlayers loops over the players objects and updates their id and name
+*   (only automatic generated names) based on their position in the list
+*/
+function updatePlayerList (playerList) {
+    debugTools.log('Update Player list');
+    let counter = 1;
+
+    playerList.forEach((player) => {
+        player.id = `player${counter}`;
+
+        if(player.name.includes('player')) {
+            player.name = `player ${counter}`;
+        }
+        counter++;
+    })
+
+    return playerList;
+}
+
 /**
 *   setSelectedAvatar takes the currently selected Avatar
 *   and returns the next in line. When you reach the end of the array,
 *   the next in line will be the very first element again.
 */
 function setSelectedAvatar (previousChar, availableAvatars) {
-    debugTools.log("set selected avatar");
+    debugTools.log('set selected avatar');
     // we start from the previous char to set the current one
     const CURRENTCHAR = {...previousChar};
 
@@ -298,7 +343,7 @@ function setSelectedAvatar (previousChar, availableAvatars) {
 *   by players from the playerList. Except when a playerID is being passed,
 *   this will inlcude the avatar from that specific player.
 */
-function updateAvailableAvatars(playerList, playerID = null) {
+function updateAvailableAvatars (playerList, playerID = null) {
     debugTools.log("update available chars");
     const AVATARLIST_COPY = [...avatarList];
     const PLAYERCHARS = generatePlayerCharacterIDList(playerList);
@@ -330,7 +375,7 @@ function generatePlayerCharacterIDList (playerList) {
 *   after it is matched by ID
 */
 function findPlayer (playerList, playerID) {
-    debugTools.log("find player");
+    debugTools.log('find player');
     return playerList.find((player) => {
         return player.id === playerID;
     } )

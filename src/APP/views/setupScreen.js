@@ -124,7 +124,7 @@ class SetupScreen extends Component {
         e.preventDefault();
         const TARGET = e.currentTarget;
 
-        this.props.actions.deletePlayer(this.props.editPlayer);
+        this.props.actions.deletePlayer(this.props.editPlayer, 'setup');
 
         this.clearInput(TARGET.querySelectorAll('input'));
 
@@ -152,7 +152,7 @@ class SetupScreen extends Component {
         let form;
 
         if(this.props.editPlayer) {
-            const player = this.getPlayerName(this.props.editPlayer);
+            const player = this.getPlayerData(this.props.editPlayer);
 
             form = (
                 <form onSubmit={this.updatePlayerHandler} id="updatePlayerForm">
@@ -242,7 +242,7 @@ class SetupScreen extends Component {
                     temp = <div className="placeholder"></div>;
                 }
 
-                return <li key={"item"+index}>{temp}</li>
+                return <li key={"item" + index}>{temp}</li>
             });
 
         } else {
@@ -256,16 +256,19 @@ class SetupScreen extends Component {
     */
     fillPlayerList() {
         const PLAYERLIST = this.props.gameSession.playerList;
+        let index = 0;
 
         if(PLAYERLIST.length > 0) {
             return PLAYERLIST.map((player) => {
                 let editable = false;
                 let className = "player_overview__item";
+
                 if(player.id === this.props.editPlayer) {
                     editable = true;
                     className += " player_overview__item--active";
                 }
-                return <li key={player.id} className={className}>
+
+                return <li key={index++} className={className}>
                     <Player player={player}
                     editable={editable}
                     clickHandler={this.selectPlayer}/>
@@ -291,7 +294,10 @@ class SetupScreen extends Component {
         return false;
     }
 
-    getPlayerName(id) {
+    /**
+    *   getPlayerData returns the player object based on a matching ID
+    */
+    getPlayerData(id) {
         return this.props.gameSession.playerList.find((player) => {
             return player.id === id;
         })

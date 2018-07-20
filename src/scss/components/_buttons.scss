@@ -102,6 +102,21 @@ button {
     }
 }
 
+.button--circular {
+    background-color: $medium-gray;
+    color: white;
+    font-size: 2rem;
+    height: 42px;
+    width: 42px;
+    line-height: 1;
+    border-radius: 50%;
+    border: none;
+
+    &:hover {
+        background-color: $red;
+    }
+}
+
 .button--tertiary {
     font-size: 2rem;
     height: 42px;

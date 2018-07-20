@@ -2,9 +2,9 @@ import { clearState } from './localstorage';
 import store from '../store';
 
 const PLAYER = {
-    id: "",
-    name: "",
-    avatar: "",
+    id: '',
+    name: '',
+    avatar: '',
     tablePosition: 0,
     characterLevel: 0,
     gearLevel: 0,
@@ -50,9 +50,7 @@ export function updateGame() {
                 payload: 'winner'
             });
         }
-
     }
-
 }
 
 export function deleteGame() {
@@ -79,7 +77,8 @@ export function addPlayer(playerName) {
 
     return (dispatch, getState) => {
         const ID = getState().app.gameSession.playerList.length + 1;
-        let name = playerName || `player ${ID}`;
+        const NAME = checkNameForSpaces(playerName);
+        const FINAL_NAME = NAME || `player ${ID}`;
 
         if(getState().app.editPlayer !== null) {
             dispatch({
@@ -89,12 +88,12 @@ export function addPlayer(playerName) {
 
         const PLAYERCOPY = {...PLAYER,
             id: `player${ID}`,
-            name: name,
+            name: FINAL_NAME,
             avatar: getState().app.selectedAvatar
         }
 
         if (checkPlayerLimit()) {
-            console.log("too many players");
+            console.log('too many players');
 
             dispatch({
                 type: 'MSG'
@@ -112,14 +111,26 @@ export function addPlayer(playerName) {
 
 export function updatePlayer(playerID, playerName) {
     return(dispatch, getState) => {
+        const NAME = checkNameForSpaces(playerName);
+
         dispatch({
             type: 'UPDATE_PLAYER',
             payload: {
                 id: playerID,
-                name: playerName || null,
+                name: NAME || null,
                 avatar: getState().app.selectedAvatar
             }
         });
+    }
+}
+
+export function resetDefeatedPlayer(playerID) {
+    return(dispatch, getState) => {
+
+        dispatch({
+            type: 'RESET_DEFEATED_PLAYER',
+            payload: playerID
+        })
     }
 }
 
@@ -143,7 +154,7 @@ export function increasePlayerLevel(playerID, levelType) {
     }
 }
 
-export function deletePlayer(playerID) {
+export function deletePlayer(playerID, deletePhase) {
     return(dispatch, getState) => {
 
         if(getState().app.editPlayer !== null) {
@@ -154,7 +165,10 @@ export function deletePlayer(playerID) {
 
         dispatch({
             type: 'DELETE_PLAYER',
-            payload: playerID
+            payload: {
+                playerID: playerID,
+                deletePhase: deletePhase
+            }
         })
     }
 }
@@ -194,6 +208,15 @@ export function toggleEditMode() {
 /*============================================================================*/
 /*                             Helper functions                               */
 /*============================================================================*/
+
+function checkNameForSpaces(name) {
+    if (!name.replace(/\s/g, '').length) {
+        name = null;
+    }
+    return name;
+}
+
+
 function checkForWinner() {
     const STATE = store.getState();
     return STATE.app.gameSession.playerList.find((player) => {

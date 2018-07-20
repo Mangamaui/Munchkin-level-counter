@@ -52,6 +52,12 @@
     }
 }
 
+@mixin verticalTablet() {
+    @media (min-height: #{$tablet-height}) {
+        @content;
+    }
+}
+
 @mixin desktop() {
     @media (min-width: #{$desktop-width}) {
         @content;
