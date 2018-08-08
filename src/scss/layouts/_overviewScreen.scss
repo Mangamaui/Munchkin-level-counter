@@ -1,23 +1,49 @@
 .layout-overview_view {
-    @include bigPhone {
-        .player_badge:not(:first-child) {
+    .player_slot {
+        vertical-align: top;
+        width: auto;
+        height: 80px;
+        padding: 3px;
+        border-radius: 15px;
+        &:hover {
+            cursor: move;
+        }
+    }
+
+    .player_slot.player_slot--active {
+        border: 3px dashed white;
+        padding: 0;
+    }
+
+    .player_slot--origin {
+        border: 3px dashed grey;
+        padding: 0;
+    }
+
+
+    @media (min-height: #{$big-phone-height}) and (max-width:763px ) {
+        .player_slot:not(:first-child) {
             margin-top: 6px;
         }
     }
 
     @include tablet {
         .playerList {
+            display: flex;
+            flex-wrap: wrap;
             margin: 0 auto;
             max-width: 700px;
             text-align: left;
         }
 
-        .player_badge {
+        .player_slot {
             margin-bottom: 20px;
             vertical-align: middle;
+            height: 295px;
+            width: 212px;
 
             &:not(:nth-child(3n+3)) {
-                margin-right: 3vw;
+                margin-right: auto;
             }
 
             h2 {
@@ -30,11 +56,10 @@
     @include desktop {
         .playerList {
             margin: 0 auto;
-            max-width: 740px;
+            max-width: 760px;
         }
 
-        .player_badge {
-            margin-bottom: 20px;
+        .player_slot {
 
             &:not(:nth-child(3n+3)) {
                 margin-right: 50px;

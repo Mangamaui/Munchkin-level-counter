@@ -8,8 +8,8 @@
 
 @font-face {
   font-family: 'mlc-icons';
-  src: url("/assets/fonts/mlc-icons.eot?7jgvle");
-  src: url("/assets/fonts/mlc-icons.eot?7jgvle#iefix") format("embedded-opentype"), url("/assets/fonts/mlc-icons.ttf?7jgvle") format("truetype"), url("/assets/fonts/mlc-icons.woff?7jgvle") format("woff"), url("/assets/fonts/mlc-icons.svg?7jgvle#mlc-icons") format("svg");
+  src: url("/assets/fonts/mlc-icons.eot?df3pkf");
+  src: url("/assets/fonts/mlc-icons.eot?df3pkf#iefix") format("embedded-opentype"), url("/assets/fonts/mlc-icons.ttf?df3pkf") format("truetype"), url("/assets/fonts/mlc-icons.woff?df3pkf") format("woff"), url("/assets/fonts/mlc-icons.svg?df3pkf#mlc-icons") format("svg");
   font-weight: normal;
   font-style: normal; }
 
@@ -26,10 +26,10 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
 
-.icon-dead:before {
+.icon-death:before {
   content: "\e906"; }
 
-.icon-death:before {
+.icon-dead:before {
   content: "\e907"; }
 
 .icon-plus:before {
@@ -44,8 +44,20 @@
 .icon-arrow-left-thick:before {
   content: "\e903"; }
 
+.icon-th-menu:before {
+  content: "\e908"; }
+
 .icon-user:before {
   content: "\e904"; }
+
+.icon-group:before {
+  content: "\e909"; }
+
+.icon-arrow-sync:before {
+  content: "\e90a"; }
+
+.icon-arrow-repeat:before {
+  content: "\e90b"; }
 
 .icon-trash:before {
   content: "\e905"; }
@@ -85,13 +97,14 @@ button {
   display: block;
   left: 50%;
   transform: translateX(-50%);
-  position: absolute;
+  position: fixed;
   width: 302px; }
   @media (min-height: 600px) {
     .button__wrap {
       bottom: 30px; } }
   @media (min-width: 768px) {
     .button__wrap {
+      bottom: 15px;
       width: 100%;
       transform: none;
       left: 0; }
@@ -296,10 +309,18 @@ form {
 .player_badge {
   align-items: center;
   display: flex;
-  height: 60px;
+  height: 80px;
   padding: 10px 12.5vw;
-  position: relative;
-  text-align: left; }
+  position: absolute;
+  text-align: left;
+  width: 95%;
+  box-sizing: border-box; }
+  .player_badge .innerWrap {
+    align-items: center;
+    display: flex;
+    height: 60px;
+    text-align: left;
+    width: 100%; }
   .player_badge .stone_slab {
     position: absolute;
     top: 0;
@@ -336,7 +357,13 @@ form {
       height: 240px;
       padding: 35px 20px 20px 20px;
       text-align: center;
-      width: 172px; }
+      width: 172px;
+      box-sizing: content-box; }
+      .player_badge .innerWrap {
+        display: inline-block;
+        height: 240px;
+        text-align: center;
+        width: 100%; }
       .player_badge .mobile_slab {
         display: none; }
       .player_badge .desktop_slab {
@@ -594,43 +621,84 @@ form {
 @media (min-width: 768px) {
   .layout-setup_view .content__wrap {
     font-size: 1.125rem;
-    height: 450px;
+    height: 420px;
     width: 700px; }
   .layout-setup_view .slab__content {
-    padding-bottom: 50px; } }
+    padding-bottom: 50px; }
+  .layout-setup_view img.desktop_slab {
+    height: 500px; } }
 
-@media (min-height: 600px) {
-  .layout-overview_view .player_badge:not(:first-child) {
+.layout-overview_view .player_slot {
+  vertical-align: top;
+  width: auto;
+  height: 80px;
+  padding: 3px;
+  border-radius: 15px; }
+  .layout-overview_view .player_slot:hover {
+    cursor: move; }
+
+.layout-overview_view .player_slot.player_slot--active {
+  border: 3px dashed white;
+  padding: 0; }
+
+.layout-overview_view .player_slot--origin {
+  border: 3px dashed grey;
+  padding: 0; }
+
+@media (min-height: 600px) and (max-width: 763px) {
+  .layout-overview_view .player_slot:not(:first-child) {
     margin-top: 6px; } }
 
 @media (min-width: 768px) {
   .layout-overview_view .playerList {
+    display: flex;
+    flex-wrap: wrap;
     margin: 0 auto;
     max-width: 700px;
     text-align: left; }
-  .layout-overview_view .player_badge {
+  .layout-overview_view .player_slot {
     margin-bottom: 20px;
-    vertical-align: middle; }
-    .layout-overview_view .player_badge:not(:nth-child(3n+3)) {
-      margin-right: 3vw; }
-    .layout-overview_view .player_badge h2 {
+    vertical-align: middle;
+    height: 295px;
+    width: 212px; }
+    .layout-overview_view .player_slot:not(:nth-child(3n+3)) {
+      margin-right: auto; }
+    .layout-overview_view .player_slot h2 {
       font-size: 1.875rem;
       margin-top: 5px; } }
 
 @media (min-width: 900px) {
   .layout-overview_view .playerList {
     margin: 0 auto;
-    max-width: 740px; }
-  .layout-overview_view .player_badge {
-    margin-bottom: 20px; }
-    .layout-overview_view .player_badge:not(:nth-child(3n+3)) {
-      margin-right: 50px; } }
+    max-width: 760px; }
+  .layout-overview_view .player_slot:not(:nth-child(3n+3)) {
+    margin-right: 50px; } }
 
 .layout-turn-view .content__wrap img.desktop_slab {
   display: block; }
 
 .layout-turn-view .content__wrap img.mobile_slab {
   display: none; }
+
+.layout-turn-view .button_pair {
+  width: 100%; }
+  .layout-turn-view .button_pair button:first-of-type {
+    width: 250px; }
+    .layout-turn-view .button_pair button:first-of-type svg {
+      height: 40px; }
+  .layout-turn-view .button_pair button:nth-of-type(2) {
+    font-size: 1.6rem;
+    height: 48px;
+    width: 48px;
+    margin-left: 5px; }
+    .layout-turn-view .button_pair button:nth-of-type(2) .button_base-color {
+      fill: #969696; }
+    .layout-turn-view .button_pair button:nth-of-type(2) .button_gloss {
+      fill: #bcbcbc; }
+    .layout-turn-view .button_pair button:nth-of-type(2) .button_shadow {
+      fill: #707070; }
+    .layout-turn-view .button_pair button:nth-of-type(2) i {
+      line-height: 42px; }
 
 @media (min-width: 768px) {
   .layout-turn-view .content__wrap {
@@ -712,6 +780,9 @@ body {
   @media (min-height: 600px) {
     #container {
       padding-top: 30px; } }
+  @media (min-width: 768px) {
+    #container {
+      padding-top: 20px; } }
 
 .logo {
   background-image: url("/assets/images/adventure_time_logo.png");
@@ -739,3 +810,6 @@ h1 {
     margin-top: 20px; }
     h1 .brand-name {
       font-size: 3.75rem; } }
+
+.text_accent {
+  color: #505050; }

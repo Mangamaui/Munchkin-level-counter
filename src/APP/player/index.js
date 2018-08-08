@@ -43,7 +43,7 @@ const Player = (props) => {
                         title="mark player as defeated"
                         onClick={props.handler}
                         >
-                        <i className="icon icon-death"></i>
+                        <i className="icon icon-dead"></i>
                     </button>
                     </React.Fragment>
                 );

@@ -39,7 +39,6 @@ const App = (props) => {
     }
 
     const VIEW = SWITCH_VIEWS(props.view);
-    // <h1>Munchkin levelcounter</h1>
     return (
         <div className="App">
             {VIEW}

@@ -5,19 +5,19 @@ import { bindActionCreators } from 'redux';
 import * as actionCreators from '../core/actions';
 import CustomButton from '../button/index';
 
+import { checkState } from '../core/localstorage';
+
 
 class StartScreen extends Component {
     constructor(props){
         super(props);
         this.state = {
-            saveGame: false
+            saveGame: checkState()
          };
 
         this.handleCreate = this.handleCreate.bind(this);
+        this.handleLoad = this.handleLoad.bind(this);
     }
-    //<button className="btn" disabled={this.state.saveGame}>Continue previous game</button>
-    // <button className="btn" onClick={this.handleCreate}>
-    //     Start new game</button>
 
     render() {
         return (
@@ -35,6 +35,11 @@ class StartScreen extends Component {
                     </div>
                 </div>
                 <div className="button__wrap">
+                    <CustomButton button_class="button button--secundary"
+                    button_handler={this.handleLoad}
+                        button_text="Continue previous game"
+                        disabled={!this.state.saveGame}>
+                    </CustomButton>
                     <CustomButton button_class="start-btn button--primary"
                         button_handler={this.handleCreate}
                         button_text="start new game">
@@ -49,8 +54,13 @@ class StartScreen extends Component {
     */
     handleCreate(e) {
         e.preventDefault();
-       this.props.actions.createGame();
-       this.props.actions.updateView("setup");
+        this.props.actions.createGame();
+        this.props.actions.updateView("setup");
+    }
+
+    handleLoad(e) {
+        e.preventDefault();
+        this.props.actions.loadGame();
     }
 }
 

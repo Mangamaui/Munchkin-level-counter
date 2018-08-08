@@ -33,14 +33,22 @@ $icon-arrow-left-thick: "\e903";
 $icon-user: "\e904";
 $icon-trash: "\e905";
 
+$icon-death: "\e906";
+$icon-dead: "\e907";
+$icon-menu: "\e908";
+$icon-group: "\e909";
+$icon-arrow-sync: "\e90a";
+$icon-arrow-repeat: "\e90b";
+
+
 
 @font-face {
     font-family: 'mlc-icons';
-    src:  url('#{$font-path}/mlc-icons.eot?7jgvle');
-    src:  url('#{$font-path}/mlc-icons.eot?7jgvle#iefix') format('embedded-opentype'),
-    url('#{$font-path}/mlc-icons.ttf?7jgvle') format('truetype'),
-    url('#{$font-path}/mlc-icons.woff?7jgvle') format('woff'),
-    url('#{$font-path}/mlc-icons.svg?7jgvle#mlc-icons') format('svg');
+    src:  url('#{$font-path}/mlc-icons.eot?df3pkf');
+    src:  url('#{$font-path}/mlc-icons.eot?df3pkf#iefix') format('embedded-opentype'),
+    url('#{$font-path}/mlc-icons.ttf?df3pkf') format('truetype'),
+    url('#{$font-path}/mlc-icons.woff?df3pkf') format('woff'),
+    url('#{$font-path}/mlc-icons.svg?df3pkf#mlc-icons') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -60,10 +68,10 @@ $icon-trash: "\e905";
     -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-dead:before {
+.icon-death:before {
   content: "\e906";
 }
-.icon-death:before {
+.icon-dead:before {
   content: "\e907";
 }
 .icon-plus:before {
@@ -78,8 +86,20 @@ $icon-trash: "\e905";
 .icon-arrow-left-thick:before {
   content: "\e903";
 }
+.icon-th-menu:before {
+  content: "\e908";
+}
 .icon-user:before {
   content: "\e904";
+}
+.icon-group:before {
+  content: "\e909";
+}
+.icon-arrow-sync:before {
+  content: "\e90a";
+}
+.icon-arrow-repeat:before {
+  content: "\e90b";
 }
 .icon-trash:before {
   content: "\e905";

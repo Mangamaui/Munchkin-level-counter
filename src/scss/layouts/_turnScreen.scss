@@ -8,6 +8,31 @@
         }
     }
 
+    .button_pair {
+        width: 100%;
+
+        button:first-of-type {
+            width: 250px;
+
+            svg {
+                height: 40px;
+            }
+        }
+
+        button:nth-of-type(2) {
+            @include button-colorScheme($base-gray, 15%);
+            font-size: 1.6rem;
+            height: 48px;
+            width: 48px;
+            margin-left: 5px;
+
+            i {
+                line-height: 42px;
+            }
+        }
+
+    }
+
     @include tablet {
         .content__wrap {
             height: 500px;

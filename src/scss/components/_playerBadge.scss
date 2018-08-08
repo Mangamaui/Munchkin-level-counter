@@ -1,10 +1,20 @@
 .player_badge {
     align-items: center;
     display: flex;
-    height: 60px;
+    height: 80px;
     padding: 10px 12.5vw; // 40/320*100
-    position: relative;
+    position: absolute;
     text-align: left;
+    width: 95%;
+    box-sizing: border-box;
+
+    .innerWrap {
+        align-items: center;
+        display: flex;
+        height: 60px;
+        text-align: left;
+        width: 100%;
+    }
 
     .stone_slab {
         position: absolute;
@@ -50,6 +60,14 @@
         padding: 35px 20px 20px 20px;
         text-align: center;
         width: 172px;
+        box-sizing: content-box;
+
+        .innerWrap {
+            display: inline-block;
+            height: 240px;
+            text-align: center;
+            width: 100%;
+        }
 
         .mobile_slab {
             display: none;
