@@ -41,6 +41,10 @@ body {
     @include bigPhone {
         padding-top: 30px;
     }
+
+    @include tablet {
+        padding-top: 20px;
+    }
 }
 
 .logo {
@@ -76,4 +80,8 @@ h1 {
             font-size: 3.75rem;
         }
     }
+}
+
+.text_accent {
+    color: $medium-gray;
 }

@@ -6,6 +6,7 @@ import * as actionCreators from '../core/actions';
 import Player from '../player/index';
 
 import CustomButton from '../button/index';
+import SquareButton from '../button/squareButton';
 
 
 const TurnView = (props) => {
@@ -33,6 +34,11 @@ const TurnView = (props) => {
         props.actions.updateView("defeat");
     }
 
+    const PLAYER_ORDER_HANDLER = (e) => {
+        e.preventDefault();
+        props.actions.updateView("overview");
+    }
+
     return (
         <div className="turnScreen layout-turn-view view-wrap">
             <div className="content__wrap">
@@ -40,12 +46,19 @@ const TurnView = (props) => {
                     player={CURRENT_PLAYER}
                     handler={DEFEATED_PLAYER_HANDLER} />
             </div>
-            <div className="button__wrap">
+            <div className="button__wrap button_pair">
+
                 <CustomButton
-                    button_class="button--primary"
+                    button_class="button button--primary"
                     button_handler={NEXT_PLAYER_HANDLER}
                     button_text="end turn">
                 </CustomButton>
+                <SquareButton
+                    button_class="button--square button--trash"
+                    button_text="delete"
+                    button_handler={PLAYER_ORDER_HANDLER}
+                ><i className="icon icon-group"></i>
+                </SquareButton>
             </div>
         </div>
     )

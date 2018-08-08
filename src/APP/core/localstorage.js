@@ -25,6 +25,12 @@ export function saveState(state) {
     }
 }
 
+export function checkState() {
+    const serializedState = localStorage.getItem("previousState");
+
+    return serializedState !== null;
+}
+
 export function clearState() {
     localStorage.clear();
 }

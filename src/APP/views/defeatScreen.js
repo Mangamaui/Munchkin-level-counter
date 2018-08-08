@@ -13,10 +13,8 @@ class DefeatScreen extends Component {
     constructor(props) {
         super(props);
 
-        this.removePlayerHandler = this.removePlayerHandler.bind(this);
-
+        //this.removePlayerHandler = this.removePlayerHandler.bind(this);
         this.updatePlayerHandler = this.updatePlayerHandler.bind(this);
-
         this.viewHandler = this.viewHandler.bind(this);
 
         this.state = {
@@ -37,12 +35,9 @@ class DefeatScreen extends Component {
                         src="assets/images/stone_slab_740x550.svg" />
                     <div className="slab__content">
                         <p>You can choose to continue playing with your <br />
-                        <span className="text_accent">current character</span>,
-                        a <span className="text_accent">new character</span> or
-                        <br/>
-                        <span className="text_accent">remove the defeated player
-                        </span> from the game.</p>
-
+                        <span className="text_accent">current character </span>
+                         or a <span className="text_accent">new character</span>.
+                        </p>
                         <AvatarSelector />
                         <form onSubmit={this.updatePlayerHandler} id="updatePlayerForm">
                             <input id="playerNameEdit" name="playerNameEdit"
@@ -64,11 +59,13 @@ class DefeatScreen extends Component {
                 </div>
 
                 <div className="button__wrap">
-                    <CustomButton
-                        button_class="button--secundary"
-                        button_text="continue without player"
-                        button_handler={this.removePlayerHandler}>
-                    </CustomButton>
+                    {
+                    // <CustomButton
+                    //     button_class="button--secundary"
+                    //     button_text="continue without player"
+                    //     button_handler={this.removePlayerHandler}>
+                    // </CustomButton>
+                    }
                     <CustomButton
                         button_class="start-btn button--primary"
                         button_handler={this.viewHandler}
@@ -107,6 +104,7 @@ class DefeatScreen extends Component {
 
         const name = document.querySelector('#playerNameEdit').value || null;
         this.props.actions.updatePlayer(this.state.activePlayer.id, name);
+        this.props.actions.updateView("turns");
 
         return false;
     }

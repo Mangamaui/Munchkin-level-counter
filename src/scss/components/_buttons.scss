@@ -39,7 +39,7 @@ button {
     display: block;
     left: 50%;
     transform: translateX(-50%);
-    position: absolute;
+    position: fixed;
     width: 302px;
 
     @include bigPhone {
@@ -47,6 +47,7 @@ button {
     }
 
     @include tablet {
+        bottom: 15px;
         width: 100%;
         transform: none;
         left: 0;

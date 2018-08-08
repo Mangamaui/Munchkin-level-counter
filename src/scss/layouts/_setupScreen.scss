@@ -8,12 +8,16 @@
     @include tablet {
         .content__wrap {
             font-size: 1.125rem;
-            height: 450px;
+            height: 420px;
             width: 700px;
         }
 
         .slab__content {
             padding-bottom: 50px;
+        }
+
+        img.desktop_slab {
+            height: 500px;
         }
     }
 }

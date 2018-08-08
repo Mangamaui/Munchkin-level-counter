@@ -1,4 +1,4 @@
-import { clearState } from './localstorage';
+import { clearState, loadState } from './localstorage';
 import store from '../store';
 
 const PLAYER = {
@@ -25,15 +25,13 @@ export function createGame() {
 }
 
 export function loadGame() {
-    return {
-        type: 'LOAD_GAME'
-    }
-}
+    return (dispatch, getState) => {
+        const state = loadState();
 
-export function saveGame() {
-
-    return {
-        type: 'SAVE_GAME'
+        dispatch({
+            type: 'LOAD_GAME',
+            payload: state
+        });
     }
 }
 
@@ -50,6 +48,19 @@ export function updateGame() {
                 payload: 'winner'
             });
         }
+    }
+}
+
+export function updatePlayerOrder(playerID, newIndex) {
+    return(dispatch) => {
+
+        dispatch({
+            type: 'UPDATE_PLAYER_ORDER',
+            payload: {
+                playerID: playerID,
+                newIndex: newIndex
+            }
+        })
     }
 }
 

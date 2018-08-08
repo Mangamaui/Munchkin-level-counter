@@ -5,8 +5,7 @@ const initialState = {
     gameSession: {
         playerList: [],
         activePlayer: null,
-        nextPlayer: null,
-        saveGame: false
+        nextPlayer: null
     },
     editMode: false,
     selectedAvatar: {
@@ -39,11 +38,11 @@ function app (state = initialState, action) {
             return {...initialState};
 
         /**
-        *   Load game will the last localstorage entry
+        *   Load game will load the last localstorage entry
         */
         case 'LOAD_GAME':
             debugTools.log('game loaded');
-            return state;
+            return {...action.payload.app};
 
         /**
         *   Update game will update the active player to the next player in line
@@ -66,6 +65,25 @@ function app (state = initialState, action) {
                 activePlayer: activePlayer,
                 nextPlayer: nextPlayer
              };
+
+            return {...state,
+                gameSession: gameSessionCopy};
+
+        /**
+        *   Update player order will change the order of the players
+        *   in the playerlist
+        */
+        case 'UPDATE_PLAYER_ORDER':
+            debugTools.log('updated player order');
+            playerList = [...state.gameSession.playerList];
+
+            const INDEX = findObjectIndex(playerList, action.payload.playerID);
+            const TEMP = playerList[INDEX];
+
+            playerList.splice(INDEX, 1);
+            playerList.splice(action.payload.newIndex, 0, TEMP);
+
+            gameSessionCopy = {...state.gameSession, playerList: playerList};
 
             return {...state,
                 gameSession: gameSessionCopy};
