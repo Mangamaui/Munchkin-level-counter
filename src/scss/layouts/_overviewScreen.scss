@@ -2,8 +2,9 @@
     .player_slot {
         vertical-align: top;
         width: auto;
-        height: 80px;
+        height: 70px;
         padding: 3px;
+        margin-bottom: 3px;
         border-radius: 15px;
         &:hover {
             cursor: move;

@@ -21,7 +21,7 @@ form {
 
 .form_group {
     display: block;
-    margin: 20px 0;
+    margin: 10px 0 15px 0;
     text-align: center;
 
     button {
@@ -30,5 +30,9 @@ form {
 
     button + button {
         margin-left: 5px;
+    }
+
+    @include tablet {
+        margin: 20px 0;
     }
 }

@@ -20,3 +20,21 @@ ReactDOM.render(
     </Provider>,
     document.getElementById('container')
 );
+
+
+resizeScreen();
+
+window.addEventListener("resize", resizeScreen);
+
+/**
+*   reset screen height for mobile devices
+*/
+function resizeScreen() {
+
+    if(window.innerWidth <= 500) {
+        const EL = document.getElementById('container');
+        EL.style.height = window.innerHeight + "px";
+    }
+
+
+}

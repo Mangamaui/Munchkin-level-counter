@@ -40,9 +40,9 @@ const App = (props) => {
 
     const VIEW = SWITCH_VIEWS(props.view);
     return (
-        <div className="App">
+        <React.Fragment>
             {VIEW}
-        </div>
+        </React.Fragment>
     );
 }
 
