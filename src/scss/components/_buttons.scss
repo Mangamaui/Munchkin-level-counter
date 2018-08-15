@@ -35,11 +35,11 @@ button {
 }
 
 .button__wrap {
-    bottom: 3vh;
+    bottom: 20px;
     display: block;
     left: 50%;
     transform: translateX(-50%);
-    position: fixed;
+    position: absolute;
     width: 302px;
 
     @include bigPhone {

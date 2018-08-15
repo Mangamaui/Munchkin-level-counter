@@ -158,7 +158,6 @@ class SetupScreen extends Component {
                 <form onSubmit={this.updatePlayerHandler} id="updatePlayerForm">
                     <input id="playerNameEdit" name="playerNameEdit"
                         type="text"
-                        autoFocus="true"
                         defaultValue={player.name}
                         autoComplete="off"
                         key={Date.now()}
@@ -183,7 +182,6 @@ class SetupScreen extends Component {
                 <form onSubmit={this.addPlayerHandler} id="addPlayerForm">
                     <input id="playerName" name="playerName"
                         type="text"
-                        autoFocus="true"
                         placeholder="Player name" defaultValue={""}
                         autoComplete="off"
                         key={Date.now()}

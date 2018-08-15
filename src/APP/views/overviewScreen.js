@@ -30,6 +30,26 @@ class OverviewScreen extends Component {
         this.onUp = this.onUp.bind(this);
     }
 
+
+    elementsFromPoint(x, y) {
+        let parents = [];
+        let parent = void 0;
+        do {
+            if (parent !== document.elementFromPoint(x, y)) {
+                parent = document.elementFromPoint(x, y);
+                parents.push(parent);
+                parent.style.pointerEvents = 'none';
+            } else {
+                parent = false;
+            }
+        } while (parent);
+        parents.forEach(function (parent) {
+            return parent.style.pointerEvents = 'all';
+        });
+
+        return parents;
+    }
+
     /**
     *   temporarly saves the original xPos & yPos of the playerBadge
     *   that is being dragged
@@ -101,7 +121,6 @@ class OverviewScreen extends Component {
     *   a slot and only then will it trigger the action to update the player order
     */
     onUp(e) {
-        e.preventDefault();
         this.isDragging = false
 
         const matchingSlot = this.checkForMatchingSlots(e);
@@ -127,6 +146,11 @@ class OverviewScreen extends Component {
     checkForMatchingSlots(e) {
         const xPos = e.clientX;
         const yPos = e.clientY;
+
+        if (!document.elementsFromPoint) {
+            document.elementsFromPoint = this.elementsFromPoint;
+        }
+
         const DOMList = document.elementsFromPoint(xPos, yPos);
 
         return DOMList.filter((item) => {
@@ -194,17 +218,17 @@ class OverviewScreen extends Component {
         const LIST = this.createPlayerList();
 
         return (
-            <div
-                className="overviewScreen view_wrap layout-overview_view"
-                onPointerMove={this.onMove}
-                onPointerUp={this.onUp}
-                touch-action="none"
-                style={{
-                    height: "calc(100vh - 10px - 30px)",
-                    userSelect: "none"
-                }}>
-                <div className="playerList" >
-                    {LIST}
+            <div className="overviewScreen view_wrap layout-overview_view">
+                <div onPointerMove={this.onMove}
+                    onPointerUp={this.onUp}
+                    touch-action="none"
+                    style={{
+                        height: "calc(100vh - 10px - 30px)",
+                        userSelect: "none"
+                    }}>
+                    <div className="playerList" >
+                        {LIST}
+                    </div>
                 </div>
                 <div className="button__wrap">
                     <CustomButton
@@ -214,6 +238,7 @@ class OverviewScreen extends Component {
                     </CustomButton>
                 </div>
             </div>
+
         )
     }
 }

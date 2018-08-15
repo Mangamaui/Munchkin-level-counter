@@ -93,11 +93,11 @@ button {
     z-index: -1; }
 
 .button__wrap {
-  bottom: 3vh;
+  bottom: 20px;
   display: block;
   left: 50%;
   transform: translateX(-50%);
-  position: fixed;
+  position: absolute;
   width: 302px; }
   @media (min-height: 600px) {
     .button__wrap {
@@ -299,17 +299,20 @@ form {
 
 .form_group {
   display: block;
-  margin: 20px 0;
+  margin: 10px 0 15px 0;
   text-align: center; }
   .form_group button {
     display: inline-block; }
   .form_group button + button {
     margin-left: 5px; }
+  @media (min-width: 768px) {
+    .form_group {
+      margin: 20px 0; } }
 
 .player_badge {
   align-items: center;
   display: flex;
-  height: 80px;
+  height: 70px;
   padding: 10px 12.5vw;
   position: absolute;
   text-align: left;
@@ -430,7 +433,6 @@ form {
 .current_player .current_player__name {
   color: #505050;
   font-size: 24px;
-  margin-bottom: 25px;
   width: auto; }
 
 .current_player .current_player__combat_level_label {
@@ -489,7 +491,7 @@ form {
   .player_overview li {
     display: inline-block;
     vertical-align: top;
-    margin: 10px 5px; }
+    margin: 0px 5px 10px 5px; }
     @media (min-width: 768px) {
       .player_overview li {
         margin: 10px; } }
@@ -631,8 +633,9 @@ form {
 .layout-overview_view .player_slot {
   vertical-align: top;
   width: auto;
-  height: 80px;
+  height: 70px;
   padding: 3px;
+  margin-bottom: 3px;
   border-radius: 15px; }
   .layout-overview_view .player_slot:hover {
     cursor: move; }
@@ -756,6 +759,9 @@ p {
     p {
       width: 520px; } }
 
+ul {
+  list-style: none; }
+
 html {
   font-size: 16px; }
 
@@ -763,7 +769,7 @@ body {
   font-family: 'helsinkiregular', cursive;
   font-size: 1rem;
   font-weight: 400;
-  background-image: url("/assets/images/background-blurred.png");
+  background-image: url("/assets/images/background-blurred-v2.png");
   background-repeat: no-repeat;
   background-position: top center;
   background-size: cover;
@@ -771,15 +777,18 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  min-width: 320px;
-  min-height: 100vh; }
+  min-width: 320px; }
+  @media (min-width: 900px) {
+    body {
+      height: 100vh; } }
 
 #container {
   padding: 10px;
-  text-align: center; }
-  @media (min-height: 600px) {
-    #container {
-      padding-top: 30px; } }
+  text-align: center;
+  max-width: 100vw;
+  height: 100vh;
+  position: relative;
+  box-sizing: border-box; }
   @media (min-width: 768px) {
     #container {
       padding-top: 20px; } }
