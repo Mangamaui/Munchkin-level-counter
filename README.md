@@ -12,10 +12,6 @@ This app was made to use alongside the game and keep track of each player's leve
 - Deal with defeated player
 - Preview and edit your players during game setup
 
-
-Check out [mangamaui.com](https://www.mangamaui.com) if you want to know about me and my projects.
-
-
 ---
 
 ## Bug reports
